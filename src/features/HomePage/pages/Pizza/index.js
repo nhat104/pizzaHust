@@ -16,10 +16,49 @@ export default function Pizza() {
 
   return (
     <div className={classes.root}>
-      <PizzaItem />
-      <PizzaItem />
-      <PizzaItem />
-      <PizzaItem />
+      {pizzaList.map((item) => (
+        <PizzaItem key={item.id} item={item} />
+      ))}
+      <PizzaItem item={pizzaList[2]} />
     </div>
   );
 }
+
+const pizzaList = [
+  {
+    id: 1,
+    urlImg: 'pizza.png 2x',
+    name: 'Pizza Hải Sản Đào',
+    quantity: 1,
+    rating: 5,
+    cost: 69000,
+    desc: '',
+  },
+  {
+    id: 2,
+    urlImg: 'pizza.png 2x',
+    name: 'Pizza Hải Sản Đào 2',
+    quantity: 1,
+    rating: 5,
+    cost: 69000,
+    desc: '',
+  },
+  {
+    id: 3,
+    urlImg: 'pizza.png 2x',
+    name: 'Pizza Hải Sản Đào 3',
+    quantity: 1,
+    rating: 5,
+    cost: 69000,
+    desc: '',
+  },
+  {
+    id: 4,
+    urlImg: 'pizza.png 2x',
+    name: 'Pizza Hải Sản Đào',
+    quantity: 1,
+    rating: 5,
+    cost: 69000,
+    desc: '',
+  },
+];

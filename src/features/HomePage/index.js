@@ -24,20 +24,22 @@ export default function HomePage() {
   const classes = useStyles();
 
   return (
-    <Grid className={classes.root} container>
-      <Grid className={classes.navBar} item xs={1}>
-        <NavBar />
+    <>
+      <Grid className={classes.root} container>
+        <Grid item xs={1}>
+          <NavBar className={classes.navBar} />
+        </Grid>
+        <Grid className={classes.main} item xs={7}>
+          <MainPage />
+          <Routes>
+            <Route path="/" element={<Navigate to="/pizza" />} />
+            <Route path="/pizza" element={<Pizza />} />
+          </Routes>
+        </Grid>
+        <Grid className={classes.cart} item xs={4}>
+          <Cart />
+        </Grid>
       </Grid>
-      <Grid className={classes.main} item xs={7}>
-        <MainPage />
-        <Routes>
-          <Route path="/" element={<Navigate to="/pizza" />} />
-          <Route path="/pizza" element={<Pizza />} />
-        </Routes>
-      </Grid>
-      <Grid className={classes.cart} item xs={4}>
-        <Cart />
-      </Grid>
-    </Grid>
+    </>
   );
 }

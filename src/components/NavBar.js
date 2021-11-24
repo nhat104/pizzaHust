@@ -14,6 +14,9 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     borderRadius: '0 30px 0 0',
     backgroundColor: '#fff',
+    position: 'fixed !important',
+    width: '8.3333%',
+    // height: '100vh',
 
     '& li': {
       justifyContent: 'center',

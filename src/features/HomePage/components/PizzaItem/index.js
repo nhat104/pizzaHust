@@ -1,7 +1,9 @@
-import React from 'react';
-import { makeStyles } from '@mui/styles';
-import { Fab, Rating } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { Fab, Rating } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { addProduct } from 'features/Slice';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
   root: {
@@ -31,18 +33,24 @@ const useStyles = makeStyles({
   },
 });
 
-export default function PizzaItem() {
+export default function PizzaItem({ item }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  function handleAddClick() {
+    dispatch(addProduct(item));
+  }
+
   return (
     <div className={classes.root}>
-      <img srcSet={process.env.PUBLIC_URL + 'pizza.png 2x'} alt="" />
-      <p>Pizza Hải Sản Đào</p>
+      <img srcSet={process.env.PUBLIC_URL + `${item.urlImg}`} alt="" />
+      <p>{item.name}</p>
       <div className={classes.body}>
         <div>
-          <Rating defaultValue={5} size="small" />
-          <p>69.000đ</p>
+          <Rating defaultValue={item.rating} size="small" />
+          <p>{item.cost}đ</p>
         </div>
-        <Fab size="small">
+        <Fab size="small" onClick={handleAddClick}>
           <AddIcon />
         </Fab>
       </div>
