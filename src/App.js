@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { makeStyles } from '@mui/styles';
+import HomePage from 'features/HomePage';
+import React from 'react';
 
-function App() {
+const useStyles = makeStyles({
+  root: {},
+});
+
+export default function App() {
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root}>
+      {/* <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home/*" element={<HomePage />} />
+        <Route path="/pay" element={<Pay />} />
+      </Routes> */}
+      <HomePage />
     </div>
   );
 }
-
-export default App;
