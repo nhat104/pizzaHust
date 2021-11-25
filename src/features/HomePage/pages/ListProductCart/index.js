@@ -4,9 +4,22 @@ import Button from 'components/Button';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { useStyles } from './styles.js';
+import { useDispatch } from 'react-redux';
+import { AddBtnClick, SubBtnClick } from 'features/Slice/index.js';
 
 export default function ListProductCart({ cart }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const onSubBtnClick = (id) => {
+    const idx = cart.findIndex((item) => item.id === id);
+    dispatch(SubBtnClick(idx));
+  };
+
+  const onAddBtnClick = (id) => {
+    const idx = cart.findIndex((item) => item.id === id);
+    dispatch(AddBtnClick(idx));
+  };
 
   return (
     <Box className={classes.root}>
@@ -27,22 +40,30 @@ export default function ListProductCart({ cart }) {
         <Box className={classes.productList}>
           {cart.map((item) => (
             <Box key={item.id} className={classes.productItem}>
-              <img srcSet={process.env.PUBLIC_URL + 'pizza.png 2x'} alt="" />
+              <img
+                src={process.env.PUBLIC_URL + `${item.srcImg}`}
+                srcSet={process.env.PUBLIC_URL + `${item.srcImg} 2x`}
+                alt=""
+              />
               <Box className={classes.itemInfo}>
                 <p>{item.name}</p>
+                <p>
+                  {item.size}, {item.sole}
+                  {!!item.topping ? ', Topping' : ''}
+                </p>
                 <Box className={classes.quantity}>
-                  <Box>
+                  <Box onClick={() => onSubBtnClick(item.id)}>
                     <RemoveIcon sx={{ cursor: 'pointer' }} />
                   </Box>
                   <Divider orientation="vertical" variant="middle" flexItem />
                   <Box sx={{ margin: '0 10px' }}>{item.quantity}</Box>
                   <Divider orientation="vertical" variant="middle" flexItem />
-                  <Box>
+                  <Box onClick={() => onAddBtnClick(item.id)}>
                     <AddIcon sx={{ cursor: 'pointer' }} />
                   </Box>
                 </Box>
-                <span>{item.cost} đ</span>
               </Box>
+              <span className={classes.cost}>{item.cost} đ</span>
             </Box>
           ))}
         </Box>

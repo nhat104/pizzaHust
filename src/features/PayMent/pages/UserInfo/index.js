@@ -1,7 +1,8 @@
-import React from 'react';
-import { Box, TextField } from '@mui/material';
+import React, { useState } from 'react';
+import { Alert, Box, Snackbar, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Button from 'components/Button';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -15,6 +16,8 @@ const useStyles = makeStyles({
 
   userInfo: {
     flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
 
     '& span': {
       fontSize: '18px',
@@ -25,11 +28,25 @@ const useStyles = makeStyles({
 
   userForm: {
     margin: '30px 20px 0 0',
+    flex: 1,
   },
 });
 
 export default function UserInfo() {
   const classes = useStyles();
+  const [buySuccess, setBuySuccess] = useState(false);
+  const navigate = useNavigate();
+
+  function handleBuyBtn() {
+    setBuySuccess(true);
+    // setTimeout(() => {
+    // navigate('/', { replace: true });
+    // }, 3000);
+  }
+
+  function handleClose() {
+    setBuySuccess(false);
+  }
 
   return (
     <Box className={classes.root}>
@@ -40,7 +57,11 @@ export default function UserInfo() {
           style={{ marginLeft: 'auto', display: 'block' }}
         />
       </Box>
-      <Box className={classes.userInfo}>
+      <Box
+        component="form"
+        className={classes.userInfo}
+        onSubmit={handleBuyBtn}
+      >
         <span>Thông tin thanh toán</span>
         <Box className={classes.userForm}>
           <TextField
@@ -80,9 +101,21 @@ export default function UserInfo() {
             sx={{ mt: 2, mb: 2 }}
           />
         </Box>
+        <Button type="submit" name={'Mua hàng'} />
       </Box>
-      {/* <Box className={classes.root}></Box> */}
-      <Button name={'Mua hàng'} />
+      <Snackbar
+        open={buySuccess}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Buy Successfull! Thank you!
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     '& p': {
       margin: '15px 0 0 10px',
       fontWeight: 600,
-      fontSize: '15px',
+      fontSize: '16px',
       lineHeight: 18 / 15,
     },
   },
@@ -24,10 +24,8 @@ const useStyles = makeStyles({
   choose: {
     margin: '0 16px',
     flex: 1,
-  },
-
-  choose_1: {
-    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
 
   toppingItem: {

@@ -15,13 +15,21 @@ const useStyles = makeStyles({
 
 export default function Cart() {
   const classes = useStyles();
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart.listProduct);
+  const choose = useSelector((state) => state.cart.chooseProduct);
+  console.log(cart);
 
   return (
     <Box className={classes.root}>
-      {cart.length === 0 && <EmptyCard />}
-      {/* <AnProductCart /> */}
-      {cart.length && <ListProductCart cart={cart} />}
+      {cart.length === 0 && Object.values(choose).length === 0 && <EmptyCard />}
+
+      {Object.values(choose).length !== 0 && (
+        <AnProductCart chooseProduct={choose} />
+      )}
+
+      {cart.length && Object.values(choose).length === 0 && (
+        <ListProductCart cart={cart} />
+      )}
     </Box>
   );
 }

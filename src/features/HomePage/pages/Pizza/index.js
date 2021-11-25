@@ -1,6 +1,7 @@
 import PizzaItem from 'features/HomePage/components/PizzaItem';
 import React from 'react';
 import { makeStyles } from '@mui/styles';
+import { v4 } from 'uuid';
 
 const useStyles = makeStyles({
   root: {
@@ -26,39 +27,43 @@ export default function Pizza() {
 
 const pizzaList = [
   {
-    id: 1,
-    urlImg: 'pizza.png 2x',
+    id: v4(),
+    srcImg: 'pizza.png',
     name: 'Pizza Hải Sản Đào',
     quantity: 1,
     rating: 5,
     cost: 69000,
+    unitCost: 69000,
     desc: '',
   },
   {
-    id: 2,
-    urlImg: 'pizza.png 2x',
+    id: v4(),
+    srcImg: 'pizza.png',
     name: 'Pizza Hải Sản Đào 2',
     quantity: 1,
     rating: 5,
     cost: 69000,
+    unitCost: 69000,
     desc: '',
   },
   {
-    id: 3,
-    urlImg: 'pizza.png 2x',
+    id: v4(),
+    srcImg: 'pizza.png',
     name: 'Pizza Hải Sản Đào 3',
     quantity: 1,
     rating: 5,
     cost: 69000,
+    unitCost: 69000,
     desc: '',
   },
   {
-    id: 4,
-    urlImg: 'pizza.png 2x',
+    id: v4(),
+    srcImg: 'pizza.png',
     name: 'Pizza Hải Sản Đào',
     quantity: 1,
     rating: 5,
     cost: 69000,
+    unitCost: 69000,
     desc: '',
   },
 ];

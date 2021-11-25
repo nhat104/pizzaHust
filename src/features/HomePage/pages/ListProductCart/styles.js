@@ -27,20 +27,20 @@ const useStyles = makeStyles({
   },
 
   productItem: {
-    height: '60px',
+    height: '80px',
     backgroundColor: '#FFECD1',
     display: 'flex',
     alignItems: 'center',
-    marginBottom: '24px',
+    marginBottom: '30px',
     borderRadius: '57px',
 
     '& img': {
-      width: '84px',
+      width: '120px',
       marginLeft: '-5px',
     },
 
     '& p': {
-      margin: 0,
+      margin: '6px 0 2px 0',
     },
   },
 
@@ -51,20 +51,27 @@ const useStyles = makeStyles({
       fontWeight: 500,
     },
 
-    '& span:last-child': {
-      float: 'right',
-      marginRight: '30px',
-      fontWeight: 700,
+    '& p:nth-child(2)': {
+      fontSize: '10px',
     },
   },
 
   quantity: {
     display: 'inline-flex',
     alignItems: 'center',
+    marginLeft: '-8px',
+    fontWeight: 700,
 
     '& > div': {
       padding: '0 5px',
     },
+  },
+
+  cost: {
+    marginRight: '20px',
+    alignSelf: 'flex-end',
+    marginBottom: '20px',
+    fontWeight: 700,
   },
 });
 

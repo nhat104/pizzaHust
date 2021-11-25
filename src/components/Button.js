@@ -1,5 +1,7 @@
-import React from 'react';
 import { makeStyles } from '@mui/styles';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -16,8 +18,25 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Button({ name, disable }) {
+export default function Button({ name, disable, product }) {
   const classes = useStyles({ name, disable });
+  const cart = useSelector((state) => state.cart.listProduct);
+  const choose = useSelector((state) => state.cart.chooseProduct);
+  const navigate = useNavigate();
 
-  return <button className={classes.root}>{name}</button>;
+  function handleClick() {
+    if (Object.values(choose).length !== 0) {
+    } else {
+      if (cart.length === 0) {
+      } else {
+        navigate('/pay', { replace: true });
+      }
+    }
+  }
+
+  return (
+    <button className={classes.root} onClick={handleClick}>
+      {name}
+    </button>
+  );
 }

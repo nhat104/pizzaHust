@@ -1,7 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Fab, Rating } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { addProduct } from 'features/Slice';
+import { chooseProduct } from 'features/Slice';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -38,12 +38,16 @@ export default function PizzaItem({ item }) {
   const dispatch = useDispatch();
 
   function handleAddClick() {
-    dispatch(addProduct(item));
+    dispatch(chooseProduct(item));
   }
 
   return (
     <div className={classes.root}>
-      <img srcSet={process.env.PUBLIC_URL + `${item.urlImg}`} alt="" />
+      <img
+        src={process.env.PUBLIC_URL + `${item.srcImg}`}
+        srcSet={process.env.PUBLIC_URL + `${item.srcImg} 2x`}
+        alt=""
+      />
       <p>{item.name}</p>
       <div className={classes.body}>
         <div>
