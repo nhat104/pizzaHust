@@ -9,6 +9,11 @@ const useStyles = makeStyles({
     height: '100vh',
   },
 
+  logo: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+
   product: {
     display: 'flex',
     width: '100%',
@@ -26,19 +31,10 @@ const useStyles = makeStyles({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-  },
-
-  toppingItem: {
-    width: '65px',
-    height: '66px',
-    textAlign: 'center',
-    display: 'inline-block',
-    cursor: 'pointer',
 
     '& span': {
-      display: 'block',
-      fontSize: '12px',
-      lineHeight: 14 / 12,
+      fontWeight: 500,
+      marginTop: '10px',
     },
   },
 });

@@ -33,7 +33,6 @@ const pizzaList = [
     quantity: 1,
     rating: 5,
     cost: 69000,
-    unitCost: 69000,
     desc: '',
   },
   {
@@ -43,7 +42,6 @@ const pizzaList = [
     quantity: 1,
     rating: 5,
     cost: 69000,
-    unitCost: 69000,
     desc: '',
   },
   {
@@ -53,7 +51,6 @@ const pizzaList = [
     quantity: 1,
     rating: 5,
     cost: 69000,
-    unitCost: 69000,
     desc: '',
   },
   {
@@ -63,7 +60,6 @@ const pizzaList = [
     quantity: 1,
     rating: 5,
     cost: 69000,
-    unitCost: 69000,
     desc: '',
   },
 ];

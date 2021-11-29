@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     backgroundColor: '#fff',
     display: 'flex',
     flexDirection: 'column',
+    borderRadius: '20px 0 0 0',
 
     '& > span': {
       fontSize: '18px',
@@ -83,7 +84,7 @@ const useStyles = makeStyles({
 
   total: {
     position: 'relative',
-    height: '58px',
+    height: '100px',
 
     '& > span': {
       position: 'absolute',
@@ -93,10 +94,19 @@ const useStyles = makeStyles({
       fontWeight: 700,
       cursor: 'pointer',
     },
-
+  },
+  fee: {
+    float: 'right',
     '& > p': {
       fontSize: '20px',
       fontWeight: 700,
+      margin: '10px 0',
+      '& > span': {
+        marginLeft: '52px',
+        '& span': {
+          color: '#ff8000',
+        },
+      },
     },
   },
 });

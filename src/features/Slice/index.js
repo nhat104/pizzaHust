@@ -14,14 +14,16 @@ const cart = createSlice({
       state.chooseProduct = action.payload;
     },
 
+    BackBtnClick: (state) => {
+      state.chooseProduct = {};
+    },
+
     SubBtnClick: (state, action) => {
       const idx = action.payload;
       if (state.listProduct[idx].quantity === 1) {
         state.listProduct.splice(idx, 1);
       } else if (state.listProduct[idx].quantity > 1) {
         state.listProduct[idx].quantity = state.listProduct[idx].quantity - 1;
-        state.listProduct[idx].cost =
-          state.listProduct[idx].cost - state.listProduct[idx].unitCost;
       }
     },
 
@@ -29,8 +31,6 @@ const cart = createSlice({
       const idx = action.payload;
       state.listProduct[idx].quantity = state.listProduct[idx].quantity + 1;
       state.chooseProduct = {};
-      state.listProduct[idx].cost =
-        state.listProduct[idx].cost + state.listProduct[idx].unitCost;
     },
 
     DelBtnClick: (state, action) => {
@@ -62,6 +62,7 @@ export const {
   AddBtnClick,
   SubBtnClick,
   DelBtnClick,
+  BackBtnClick,
 } = cart.actions;
 
 export default cart.reducer;

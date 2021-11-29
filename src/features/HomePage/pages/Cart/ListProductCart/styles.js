@@ -27,15 +27,15 @@ const useStyles = makeStyles({
   },
 
   productItem: {
-    height: '80px',
+    height: '60px',
     backgroundColor: '#FFECD1',
     display: 'flex',
     alignItems: 'center',
-    marginBottom: '30px',
+    marginBottom: '24px',
     borderRadius: '57px',
 
     '& img': {
-      width: '120px',
+      width: '90px',
       marginLeft: '-5px',
     },
 
@@ -69,9 +69,12 @@ const useStyles = makeStyles({
 
   cost: {
     marginRight: '20px',
-    alignSelf: 'flex-end',
-    marginBottom: '20px',
     fontWeight: 700,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'end',
+    height: '55px',
+    justifyContent: 'space-around',
   },
 });
 

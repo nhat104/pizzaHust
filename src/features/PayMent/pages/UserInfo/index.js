@@ -39,9 +39,9 @@ export default function UserInfo() {
 
   function handleBuyBtn() {
     setBuySuccess(true);
-    // setTimeout(() => {
-    // navigate('/', { replace: true });
-    // }, 3000);
+    setTimeout(() => {
+      navigate('/', { replace: true });
+    }, 300);
   }
 
   function handleClose() {
@@ -66,6 +66,7 @@ export default function UserInfo() {
         <Box className={classes.userForm}>
           <TextField
             margin="normal"
+            autoFocus
             required
             fullWidth
             id="name"
@@ -81,11 +82,13 @@ export default function UserInfo() {
             label="Số điện thoại"
             name="Phone"
             sx={{ mt: 2, mb: 2 }}
+            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
           />
           <TextField
             margin="normal"
             required
             fullWidth
+            type="email"
             id="email"
             label="Email"
             name="Email"

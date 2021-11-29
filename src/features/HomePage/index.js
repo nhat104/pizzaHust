@@ -2,18 +2,19 @@ import { Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import NavBar from 'components/NavBar';
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Cart from './pages/Cart';
 import MainPage from './pages/Main';
 import Pizza from './pages/Pizza';
 
 const useStyles = makeStyles({
-  root: {},
+  root: {
+    backgroundColor: '#FFF2F2',
+  },
 
   navBar: {},
 
   main: {
-    backgroundColor: '#FFF2F2',
     padding: '0 40px 40px',
   },
 
@@ -26,7 +27,7 @@ export default function HomePage() {
   return (
     <>
       <Grid className={classes.root} container>
-        <Grid item xs={1}>
+        <Grid item xs={1} className={classes.nav}>
           <NavBar className={classes.navBar} />
         </Grid>
         <Grid className={classes.main} item xs={7}>

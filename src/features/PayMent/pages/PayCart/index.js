@@ -20,6 +20,7 @@ export default function PayCard() {
     let newTotal = 0;
     cart.map(function calcTotal(item) {
       newTotal = newTotal + item.cost;
+      return newTotal;
     });
     setTotal(newTotal);
   }, []);
@@ -93,14 +94,32 @@ export default function PayCard() {
 
           {/* Tổng tiền */}
           <Box className={classes.total}>
-            <p style={{ float: 'right' }}>
-              Tổng{' '}
-              <span style={{ marginLeft: '52px' }}>
-                {total}
-                <span style={{ color: '#ff8000' }}>đ</span>
-              </span>
-            </p>
-            <span onClick={() => navigate(-1)}>Tiếp tục mua hàng</span>
+            <Box className={classes.fee}>
+              <p>
+                Tổng tiền hàng
+                <span>
+                  {total}
+                  <span>đ</span>
+                </span>
+              </p>
+              <p>
+                Phí vận chuyển
+                <span>
+                  {total ? 22000 : 0}
+                  <span>đ</span>
+                </span>
+              </p>
+              <p>
+                Tổng thanh toán
+                <span>
+                  {total + total ? 22000 : 0}
+                  <span>đ</span>
+                </span>
+              </p>
+            </Box>
+            <span onClick={() => navigate('/', { replace: true })}>
+              Tiếp tục mua hàng
+            </span>
           </Box>
         </Box>
       </Box>

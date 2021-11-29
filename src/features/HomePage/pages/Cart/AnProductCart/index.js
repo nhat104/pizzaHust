@@ -1,31 +1,48 @@
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Autocomplete, Box, TextField } from '@mui/material';
 import Button from 'components/Button';
+import {
+  AddBtnClick,
+  addOldProduct,
+  addProduct,
+  BackBtnClick,
+} from 'features/Slice';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useStyles } from './styles';
-import { useSelector, useDispatch } from 'react-redux';
-import { AddBtnClick, addOldProduct, addProduct } from 'features/Slice';
 
 export default function AnProductCart({ chooseProduct }) {
   const classes = useStyles();
   const [size, setSize] = useState('');
   const [sole, setSole] = useState('');
   const [topping, setTopping] = useState('');
-  const [note, setNote] = useState('Không hành');
   const cart = useSelector((state) => state.cart.listProduct);
   const dispatch = useDispatch();
 
-  const product = {
-    ...chooseProduct,
-    size,
-    sole,
-    topping,
-    note,
-  };
+  function handleBackBtn() {
+    dispatch(BackBtnClick());
+  }
 
   function handleToCartBtn() {
+    // change cost when choose size, topping
+    const newSize = sizes.find((x) => x.size === size);
+    let toppingCost = 0;
+    if (topping !== '') {
+      toppingCost = toppings.find((x) => x.topping === topping).cost;
+    }
+
+    const product = {
+      ...chooseProduct,
+      cost: newSize.cost + toppingCost,
+      size,
+      sole,
+      topping,
+    };
+    console.log('product', product);
+
     const idx = cart.findIndex((item) => item.id === product.id);
     if (idx !== -1) {
-      console.log('can find');
+      // Nếu sản phẩm mới trùng sản phẩm đã chọn, quantity + 1
       if (
         cart[idx].size === product.size &&
         cart[idx].sole === product.sole &&
@@ -43,13 +60,13 @@ export default function AnProductCart({ chooseProduct }) {
   return (
     <Box className={classes.root}>
       <Box className={classes.logo}>
+        <ArrowBackIosIcon onClick={handleBackBtn} sx={{ cursor: 'pointer' }} />
         <img
-          srcSet={process.env.PUBLIC_URL + `${chooseProduct.imgUrl}`}
+          srcSet={process.env.PUBLIC_URL + 'pizzaLogo.png 2x'}
           alt=""
           style={{ marginLeft: 'auto', display: 'block' }}
         />
       </Box>
-
       <Box className={classes.product}>
         <img srcSet={process.env.PUBLIC_URL + 'pizza.png 2x'} alt="" />
         <Box>
@@ -67,75 +84,83 @@ export default function AnProductCart({ chooseProduct }) {
       >
         <Box sx={{ flex: 1 }}>
           <Autocomplete
+            className={classes.select}
             disablePortal
             id="size"
-            value={size}
-            onChange={(event, newValue) => {
+            inputValue={size}
+            options={sizes}
+            onInputChange={(event, newValue) => {
               setSize(newValue);
             }}
             isOptionEqualToValue={(option, value) =>
               option.value === value.value
             }
-            options={['size S', 'size M', 'size L']}
+            getOptionLabel={(option) => option.size}
             sx={{ mt: 1, mb: 1, width: '100%' }}
+            renderOption={(props, option) => (
+              <Box component="li" {...props}>
+                {option.size} ({option.cost}đ)
+              </Box>
+            )}
             renderInput={(params) => (
               <TextField
                 name="size"
+                // autoFocus
                 required
                 {...params}
-                label="Chọn kích thước"
+                label="Chọn size"
               />
             )}
           />
+
           <Autocomplete
+            className={classes.select}
             disablePortal
             id="sole"
-            value={sole}
-            onChange={(event, newValue) => {
+            inputValue={sole}
+            options={soles}
+            onInputChange={(event, newValue) => {
               setSole(newValue);
             }}
             isOptionEqualToValue={(option, value) =>
               option.value === value.value
             }
-            options={['đế giòn', 'đế mềm xốp']}
+            getOptionLabel={(option) => option.sole}
             sx={{ mt: 1, mb: 1, width: '100%' }}
+            renderOption={(props, option) => (
+              <Box component="li" {...props}>
+                {option.sole} ({option.cost})
+              </Box>
+            )}
             renderInput={(params) => (
-              <TextField
-                name="sole"
-                required
-                {...params}
-                label="Chọn loại đế"
-              />
+              <TextField name="sole" required {...params} label="Chọn đế" />
             )}
           />
+
+          {/* <span>Chọn topping</span> */}
           <Autocomplete
+            className={classes.select}
             disablePortal
             id="topping"
-            value={topping}
-            onChange={(event, newValue) => {
+            inputValue={topping}
+            options={toppings}
+            onInputChange={(event, newValue) => {
               setTopping(newValue);
             }}
             isOptionEqualToValue={(option, value) =>
               option.value === value.value
             }
-            options={['thêm phô mai phủ', 'thêm phô mai viền', 'double sốt']}
+            getOptionLabel={(option) => option.topping}
             sx={{ mt: 1, mb: 1, width: '100%' }}
+            renderOption={(props, option) => (
+              <Box component="li" {...props}>
+                {option.topping} ({option.cost}đ)
+              </Box>
+            )}
             renderInput={(params) => (
-              <TextField name="sole" {...params} label="Chọn Topping" />
+              <TextField name="topping" {...params} label="Chọn topping" />
             )}
           />
-
-          <Box className={classes.note}>
-            <TextField
-              id="outlined-multiline-static"
-              label="Ghi chú"
-              multiline
-              rows={4}
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              sx={{ width: '100%', mt: '20px' }}
-            />
-          </Box>
         </Box>
 
         <Button type="submit" name={'Thêm vào giỏ'} />
@@ -143,3 +168,44 @@ export default function AnProductCart({ chooseProduct }) {
     </Box>
   );
 }
+
+const sizes = [
+  {
+    size: 'size S',
+    cost: 40000,
+  },
+  {
+    size: 'size L',
+    cost: 69000,
+  },
+  {
+    size: 'size M',
+    cost: 99000,
+  },
+];
+
+const soles = [
+  {
+    sole: 'đế giòn',
+    cost: 'miễn phí',
+  },
+  {
+    sole: 'đế mềm xốp',
+    cost: 'miễn phí',
+  },
+];
+
+const toppings = [
+  {
+    topping: 'thêm phô mai phủ',
+    cost: 10000,
+  },
+  {
+    topping: 'thêm phô mai viền',
+    cost: 10000,
+  },
+  {
+    topping: 'double sốt',
+    cost: 10000,
+  },
+];

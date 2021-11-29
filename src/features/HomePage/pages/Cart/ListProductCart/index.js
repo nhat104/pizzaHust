@@ -5,7 +5,8 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { useStyles } from './styles.js';
 import { useDispatch } from 'react-redux';
-import { AddBtnClick, SubBtnClick } from 'features/Slice/index.js';
+import { AddBtnClick, DelBtnClick, SubBtnClick } from 'features/Slice/index.js';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 export default function ListProductCart({ cart }) {
   const classes = useStyles();
@@ -19,6 +20,11 @@ export default function ListProductCart({ cart }) {
   const onAddBtnClick = (id) => {
     const idx = cart.findIndex((item) => item.id === id);
     dispatch(AddBtnClick(idx));
+  };
+
+  const onDelBtnClick = (id) => {
+    const idx = cart.findIndex((item) => item.id === id);
+    dispatch(DelBtnClick(idx));
   };
 
   return (
@@ -47,10 +53,10 @@ export default function ListProductCart({ cart }) {
               />
               <Box className={classes.itemInfo}>
                 <p>{item.name}</p>
-                <p>
+                {/* <p>
                   {item.size}, {item.sole}
                   {!!item.topping ? ', Topping' : ''}
-                </p>
+                </p> */}
                 <Box className={classes.quantity}>
                   <Box onClick={() => onSubBtnClick(item.id)}>
                     <RemoveIcon sx={{ cursor: 'pointer' }} />
@@ -63,7 +69,13 @@ export default function ListProductCart({ cart }) {
                   </Box>
                 </Box>
               </Box>
-              <span className={classes.cost}>{item.cost} đ</span>
+              <Box className={classes.cost}>
+                <HighlightOffIcon
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => onDelBtnClick(item.id)}
+                />
+                <span>{item.cost * item.quantity} đ</span>
+              </Box>
             </Box>
           ))}
         </Box>
