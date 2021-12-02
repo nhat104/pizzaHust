@@ -1,8 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
-  root: {},
-
   body: {
     marginTop: '20px',
     '& > span': {
@@ -10,14 +8,6 @@ const useStyles = makeStyles({
       fontWeight: 700,
       lineHeight: '22px',
     },
-  },
-
-  header: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '250px',
   },
 
   category: {

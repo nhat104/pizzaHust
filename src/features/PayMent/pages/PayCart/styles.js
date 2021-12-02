@@ -98,7 +98,6 @@ const useStyles = makeStyles({
   fee: {
     float: 'right',
     '& > p': {
-      fontSize: '20px',
       fontWeight: 700,
       margin: '10px 0',
       '& > span': {
@@ -107,6 +106,9 @@ const useStyles = makeStyles({
           color: '#ff8000',
         },
       },
+    },
+    '& > p:last-child': {
+      fontSize: '20px',
     },
   },
 });

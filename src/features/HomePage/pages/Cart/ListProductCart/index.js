@@ -1,12 +1,13 @@
-import React from 'react';
-import { Box, Divider } from '@mui/material';
-import Button from 'components/Button';
-import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import { useStyles } from './styles.js';
-import { useDispatch } from 'react-redux';
-import { AddBtnClick, DelBtnClick, SubBtnClick } from 'features/Slice/index.js';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { Box, Divider, Collapse } from '@mui/material';
+import Button from 'components/Button';
+import { AddBtnClick, DelBtnClick, SubBtnClick } from 'features/Slice/index.js';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useStyles } from './styles.js';
+import { TransitionGroup } from 'react-transition-group';
 
 export default function ListProductCart({ cart }) {
   const classes = useStyles();
@@ -27,6 +28,39 @@ export default function ListProductCart({ cart }) {
     dispatch(DelBtnClick(idx));
   };
 
+  function renderItem({ item }) {
+    return (
+      <Box className={classes.productItem}>
+        <img
+          src={process.env.PUBLIC_URL + `${item.srcImg}`}
+          srcSet={process.env.PUBLIC_URL + `${item.srcImg} 2x`}
+          alt=""
+        />
+        <Box className={classes.itemInfo}>
+          <p>{item.name}</p>
+          <Box className={classes.quantity}>
+            <Box onClick={() => onSubBtnClick(item.id)}>
+              <RemoveIcon sx={{ cursor: 'pointer' }} />
+            </Box>
+            <Divider orientation="vertical" variant="middle" flexItem />
+            <Box sx={{ margin: '0 10px' }}>{item.quantity}</Box>
+            <Divider orientation="vertical" variant="middle" flexItem />
+            <Box onClick={() => onAddBtnClick(item.id)}>
+              <AddIcon sx={{ cursor: 'pointer' }} />
+            </Box>
+          </Box>
+        </Box>
+        <Box className={classes.cost}>
+          <HighlightOffIcon
+            sx={{ cursor: 'pointer' }}
+            onClick={() => onDelBtnClick(item.id)}
+          />
+          <span>{item.cost * item.quantity} đ</span>
+        </Box>
+      </Box>
+    );
+  }
+
   return (
     <Box className={classes.root}>
       <Box className={classes.logo}>
@@ -44,7 +78,12 @@ export default function ListProductCart({ cart }) {
           </span>
         </Box>
         <Box className={classes.productList}>
-          {cart.map((item) => (
+          <TransitionGroup>
+            {cart.map((item) => (
+              <Collapse key={item.id}>{renderItem({ item })}</Collapse>
+            ))}
+          </TransitionGroup>
+          {/* {cart.map((item) => (
             <Box key={item.id} className={classes.productItem}>
               <img
                 src={process.env.PUBLIC_URL + `${item.srcImg}`}
@@ -53,10 +92,6 @@ export default function ListProductCart({ cart }) {
               />
               <Box className={classes.itemInfo}>
                 <p>{item.name}</p>
-                {/* <p>
-                  {item.size}, {item.sole}
-                  {!!item.topping ? ', Topping' : ''}
-                </p> */}
                 <Box className={classes.quantity}>
                   <Box onClick={() => onSubBtnClick(item.id)}>
                     <RemoveIcon sx={{ cursor: 'pointer' }} />
@@ -77,7 +112,7 @@ export default function ListProductCart({ cart }) {
                 <span>{item.cost * item.quantity} đ</span>
               </Box>
             </Box>
-          ))}
+          ))} */}
         </Box>
       </Box>
       <Button name={'Mua hàng'} />

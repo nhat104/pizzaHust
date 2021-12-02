@@ -4,8 +4,8 @@ import NavBar from 'components/NavBar';
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Cart from './pages/Cart';
-import MainPage from './pages/Main';
-import Pizza from './pages/Pizza';
+import Header from './pages/Header';
+import Pizza from './pages/Category/Pizza';
 
 const useStyles = makeStyles({
   root: {
@@ -31,7 +31,7 @@ export default function HomePage() {
           <NavBar className={classes.navBar} />
         </Grid>
         <Grid className={classes.main} item xs={7}>
-          <MainPage />
+          <Header />
           <Routes>
             <Route path="/" element={<Navigate to="/pizza" />} />
             <Route path="/pizza" element={<Pizza />} />

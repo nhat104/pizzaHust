@@ -25,8 +25,7 @@ const useStyles = makeStyles({
 
     '&:hover': {
       '& img': {
-        transform: 'scale(1.2)',
-        transform: 'rotate(20deg)',
+        transform: 'scale(1.2) rotate(20deg)',
         transition: '0.5s',
       },
       '& p': {

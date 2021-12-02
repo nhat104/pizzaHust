@@ -28,14 +28,14 @@ export default function PayCard() {
   const onSubBtnClick = (id) => {
     const idx = cart.findIndex((item) => item.id === id);
     dispatch(SubBtnClick(idx));
-    const newTotal = total - cart[idx].unitCost;
+    const newTotal = total - cart[idx].cost;
     setTotal(newTotal);
   };
 
   const onAddBtnClick = (id) => {
     const idx = cart.findIndex((item) => item.id === id);
     dispatch(AddBtnClick(idx));
-    const newTotal = total + cart[idx].unitCost;
+    const newTotal = total + cart[idx].cost;
     setTotal(newTotal);
   };
 
@@ -112,7 +112,7 @@ export default function PayCard() {
               <p>
                 Tổng thanh toán
                 <span>
-                  {total + total ? 22000 : 0}
+                  {total + (total ? 22000 : 0)}
                   <span>đ</span>
                 </span>
               </p>

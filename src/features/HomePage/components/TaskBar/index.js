@@ -1,26 +1,13 @@
 import { Box } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useStyles } from './styles';
 
-export default function MainPage() {
+export default function TaskBar() {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.header}>
-        <img
-          srcSet={process.env.PUBLIC_URL + 'pizzaLogo.png 2x'}
-          alt=""
-          style={{ margin: 'auto 0' }}
-        />
-
-        <img
-          srcSet={process.env.PUBLIC_URL + 'img/Delivery2.png'}
-          alt=""
-          style={{ width: '100%' }}
-        />
-      </Box>
+    <div>
       <Box className={classes.body}>
         <span id="category">Thực đơn</span>
         <Box className={classes.category}>
@@ -40,29 +27,27 @@ export default function MainPage() {
                 </div>
                 <p>{item.name}</p>
                 <span className={classes.arrow}>
-                  {
-                    <svg
-                      width="17"
-                      height="17"
-                      viewBox="0 0 17 17"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle cx="8.5" cy="8.5" r="8.5" fill="#FF8001" />
-                      <path
-                        d="M7 5L11 8.5L7 12"
-                        stroke="white"
-                        stroke-linecap="round"
-                      />
-                    </svg>
-                  }
+                  <svg
+                    width="17"
+                    height="17"
+                    viewBox="0 0 17 17"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="8.5" cy="8.5" r="8.5" fill="#FF8001" />
+                    <path
+                      d="M7 5L11 8.5L7 12"
+                      stroke="white"
+                      stroke-linecap="round"
+                    />
+                  </svg>
                 </span>
               </NavLink>
             </div>
           ))}
         </Box>
       </Box>
-    </Box>
+    </div>
   );
 }
 

@@ -23,7 +23,8 @@ export default function AnProductCart({ chooseProduct }) {
     dispatch(BackBtnClick());
   }
 
-  function handleToCartBtn() {
+  function handleToCartBtn(event) {
+    event.preventDefault();
     // change cost when choose size, topping
     const newSize = sizes.find((x) => x.size === size);
     let toppingCost = 0;
@@ -175,11 +176,11 @@ const sizes = [
     cost: 40000,
   },
   {
-    size: 'size L',
+    size: 'size M',
     cost: 69000,
   },
   {
-    size: 'size M',
+    size: 'size L',
     cost: 99000,
   },
 ];

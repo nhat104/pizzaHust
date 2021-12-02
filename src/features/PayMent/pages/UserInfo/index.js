@@ -3,6 +3,8 @@ import { Alert, Box, Snackbar, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Button from 'components/Button';
 import { useNavigate } from 'react-router-dom';
+import { buyAllRequest } from 'features/Slice';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
   root: {
@@ -36,12 +38,15 @@ export default function UserInfo() {
   const classes = useStyles();
   const [buySuccess, setBuySuccess] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  function handleBuyBtn() {
+  function handleBuyBtn(event) {
+    event.preventDefault();
     setBuySuccess(true);
     setTimeout(() => {
+      dispatch(buyAllRequest());
       navigate('/', { replace: true });
-    }, 300);
+    }, 1000);
   }
 
   function handleClose() {
