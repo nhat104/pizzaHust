@@ -2,7 +2,7 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   root: {
-    padding: '12px 28px 34px 32px',
+    padding: '21px 28px 34px 32px',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
@@ -10,6 +10,8 @@ const useStyles = makeStyles({
   },
 
   product: {
+    display: 'flex',
+    flexDirection: 'column',
     flex: 1,
     marginTop: '18px',
     overflow: 'auto',
@@ -17,17 +19,36 @@ const useStyles = makeStyles({
   },
 
   productList: {
-    margin: '30px 0',
-  },
+    flex: 1,
+    overflow: 'auto',
+    /* width */
+    '&::-webkit-scrollbar': {
+      width: '5px',
+      borderRadius: '10px',
+    },
 
-  text: {
-    '& span:last-child': {
-      float: 'right',
+    /* Track */
+    '&::-webkit-scrollbar-track': {
+      background: '#fff2e0',
+    },
+
+    /* Handle */
+    '&::-webkit-scrollbar-thumb': {
+      background: '#ff8000',
+      borderRadius: '10px',
     },
   },
 
+  text: {
+    marginBottom: '30px',
+    fontSize: '18px',
+    fontWeight: 700,
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
   productItem: {
-    height: '60px',
+    height: '80px',
     backgroundColor: '#FFECD1',
     display: 'flex',
     alignItems: 'center',
@@ -35,8 +56,13 @@ const useStyles = makeStyles({
     borderRadius: '57px',
 
     '& img': {
-      width: '90px',
+      width: '100px',
       marginLeft: '-5px',
+      transition: 'all 0.5s',
+      transitionTiming: 'ease-in-out',
+      '&:hover': {
+        transform: 'rotate(20deg)',
+      },
     },
 
     '& p': {
@@ -56,12 +82,22 @@ const useStyles = makeStyles({
     },
   },
 
+  itemName: {
+    display: 'WebkitBox',
+    WebkitBoxOrient: 'vertical',
+    WebkitLineClamp: '2',
+    maxHeight: '2.4rem',
+    fontWeight: 600,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    textAlign: 'left',
+  },
+
   quantity: {
     display: 'inline-flex',
     alignItems: 'center',
     marginLeft: '-8px',
     fontWeight: 700,
-
     '& > div': {
       padding: '0 5px',
     },

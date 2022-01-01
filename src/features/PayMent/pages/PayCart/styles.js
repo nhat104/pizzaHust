@@ -54,6 +54,8 @@ const useStyles = makeStyles({
     fontSize: '16px',
     lineHeight: 5 / 4,
     fontWeight: 600,
+    background: '#fff2e0',
+    borderRadius: '100px 0 0 100px',
 
     '& img': {
       width: '120px',
@@ -77,14 +79,14 @@ const useStyles = makeStyles({
     },
   },
 
-  price: {
+  cost: {
     marginRight: '20px',
     fontWeight: 700,
   },
 
   total: {
     position: 'relative',
-    height: '100px',
+    // height: '100px',
 
     '& > span': {
       position: 'absolute',
@@ -97,18 +99,14 @@ const useStyles = makeStyles({
   },
   fee: {
     float: 'right',
-    '& > p': {
-      fontWeight: 700,
-      margin: '10px 0',
-      '& > span': {
-        marginLeft: '52px',
-        '& span': {
+    '& > table': {
+      fontSize: '14px',
+      fontWeight: 500,
+      '& > tr': {
+        '& td span': {
           color: '#ff8000',
         },
       },
-    },
-    '& > p:last-child': {
-      fontSize: '20px',
     },
   },
 });

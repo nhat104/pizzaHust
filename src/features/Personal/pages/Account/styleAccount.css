@@ -1,0 +1,24 @@
+.account-info {
+  margin-top: 80px;
+}
+.account-info__label {
+  display: inline-block;
+}
+.account-info__value {
+  display: inline-block;
+  margin-left: 100px;
+}
+.account-info__item {
+  margin: 25px 0;
+}
+.account-info__password {
+  outline: none;
+  border: none;
+}
+.account-info__item--text {
+  color: #000;
+  font-size: 14px;
+  font-style: italic;
+  display: inline-block;
+  cursor: pointer;
+}

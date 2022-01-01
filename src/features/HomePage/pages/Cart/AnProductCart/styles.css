@@ -1,0 +1,13 @@
+.Mui-focus {
+  color: #ccc;
+  background-color: #ddd;
+}
+
+.css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border: none;
+}
+
+.MuiAutocomplete-hasPopupIcon .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}

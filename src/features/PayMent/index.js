@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import PayCard from './pages/PayCart';
-import UserInfo from './pages/UserInfo';
+import UserForm from './pages/UserForm';
 import NavBar from 'components/NavBar';
 
 const useStyles = makeStyles({
@@ -23,8 +23,8 @@ export default function Pay() {
       <Grid className={classes.main} item xs={7}>
         <PayCard />
       </Grid>
-      <Grid className={classes.userInfo} item xs={4}>
-        <UserInfo />
+      <Grid className={classes.userForm} item xs={4}>
+        <UserForm />
       </Grid>
     </Grid>
   );

@@ -10,7 +10,7 @@ const cart = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    chooseProduct: (state, action) => {
+    ChooseProduct: (state, action) => {
       state.chooseProduct = action.payload;
     },
 
@@ -41,7 +41,7 @@ const cart = createSlice({
     addProduct: (state, action) => {
       const newProduct = action.payload;
       state.chooseProduct = {};
-      state.listProduct.unshift(newProduct);
+      state.listProduct.push(newProduct);
     },
 
     addOldProduct: (state, action) => {
@@ -62,7 +62,7 @@ const cart = createSlice({
 export const {
   addProduct,
   addOldProduct,
-  chooseProduct,
+  ChooseProduct,
   AddBtnClick,
   SubBtnClick,
   DelBtnClick,

@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Button({ name, disable, product }) {
+export default function Button({ name, disable }) {
   const classes = useStyles({ name, disable });
   const cart = useSelector((state) => state.cart.listProduct);
   const choose = useSelector((state) => state.cart.chooseProduct);

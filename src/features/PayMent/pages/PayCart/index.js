@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, Collapse } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { AddBtnClick, DelBtnClick, SubBtnClick } from 'features/Slice/index.js';
 import { useNavigate } from 'react-router-dom';
+import { TransitionGroup } from 'react-transition-group';
 
 export default function PayCard() {
   const classes = useStyles();
@@ -19,11 +20,11 @@ export default function PayCard() {
   useEffect(() => {
     let newTotal = 0;
     cart.map(function calcTotal(item) {
-      newTotal = newTotal + item.cost;
+      newTotal = newTotal + item.cost * item.quantity;
       return newTotal;
     });
     setTotal(newTotal);
-  }, []);
+  }, [cart]);
 
   const onSubBtnClick = (id) => {
     const idx = cart.findIndex((item) => item.id === id);
@@ -41,10 +42,57 @@ export default function PayCard() {
 
   const onDelBtnClick = (id) => {
     const idx = cart.findIndex((item) => item.id === id);
-    const newTotal = total - cart[idx].cost;
+    const newTotal = total - cart[idx].cost * cart[idx].quantity;
     setTotal(newTotal);
     dispatch(DelBtnClick(idx));
   };
+
+  // Hiệu ứng khi xoá item
+  function renderItem({ item }) {
+    return (
+      <Box key={item.id} className={classes.productItem}>
+        <img
+          src={item.image}
+          // src={process.env.PUBLIC_URL + `${item.srcImg}`}
+          alt=""
+        />
+        <Box className={classes.itemInfo}>
+          <p>{item.name}</p>
+          <Box className={classes.quantity}>
+            <Box onClick={() => onSubBtnClick(item.id)}>
+              <RemoveIcon sx={{ cursor: 'pointer' }} />
+            </Box>
+            <Divider orientation="vertical" flexItem />
+            <Box>
+              <span style={{ color: '#ff8000' }}>{item.quantity}</span>
+            </Box>
+            <Divider orientation="vertical" flexItem />
+            <Box onClick={() => onAddBtnClick(item.id)}>
+              <AddIcon sx={{ cursor: 'pointer' }} />
+            </Box>
+          </Box>
+          {item.size ? (
+            <p style={{ fontSize: '10px', lineHeight: 6 / 5 }}>
+              {item.size}, {item.sole}
+              {item.topping !== '' ? `, ${item.topping}` : ''}
+            </p>
+          ) : null}
+        </Box>
+        <Box className={classes.cost}>
+          <HighlightOffIcon
+            onClick={() => onDelBtnClick(item.id)}
+            sx={{ float: 'right', mb: 2, cursor: 'pointer' }}
+          />
+          <p>
+            {item.cost * item.quantity}
+            <span style={{ color: '#ff8000' }}>đ</span>
+          </p>
+        </Box>
+      </Box>
+    );
+  }
+
+  console.log(cart);
 
   return (
     <Box className={classes.root}>
@@ -52,70 +100,39 @@ export default function PayCard() {
         <Box className={classes.cart}>
           <span>Giỏ hàng</span>
           <Box className={classes.productList}>
-            {cart.map((item) => (
-              <Box key={item.id} className={classes.productItem}>
-                <img
-                  src={process.env.PUBLIC_URL + `${item.srcImg}`}
-                  srcSet={process.env.PUBLIC_URL + `${item.srcImg} 2x`}
-                  alt=""
-                />
-                <Box className={classes.itemInfo}>
-                  <p>{item.name}</p>
-                  <Box className={classes.quantity}>
-                    <Box onClick={() => onSubBtnClick(item.id)}>
-                      <RemoveIcon sx={{ cursor: 'pointer' }} />
-                    </Box>
-                    <Divider orientation="vertical" flexItem />
-                    <Box>
-                      <span>{item.quantity}</span>
-                    </Box>
-                    <Divider orientation="vertical" flexItem />
-                    <Box onClick={() => onAddBtnClick(item.id)}>
-                      <AddIcon sx={{ cursor: 'pointer' }} />
-                    </Box>
-                  </Box>
-                  <p style={{ fontSize: '10px', lineHeight: 6 / 5 }}>
-                    {item.size}, {item.sole}, {item.topping}
-                  </p>
-                </Box>
-                <Box className={classes.price}>
-                  <HighlightOffIcon
-                    onClick={() => onDelBtnClick(item.id)}
-                    sx={{ float: 'right', mb: 2, cursor: 'pointer' }}
-                  />
-                  <p>
-                    {item.cost}
-                    <span style={{ color: '#ff8000' }}>đ</span>
-                  </p>
-                </Box>
-              </Box>
-            ))}
+            <TransitionGroup>
+              {cart.map((item) => (
+                <Collapse key={item.id}>{renderItem({ item })}</Collapse>
+              ))}
+            </TransitionGroup>
           </Box>
 
           {/* Tổng tiền */}
           <Box className={classes.total}>
             <Box className={classes.fee}>
-              <p>
-                Tổng tiền hàng
-                <span>
-                  {total}
-                  <span>đ</span>
-                </span>
-              </p>
-              <p>
-                Phí vận chuyển
-                <span>
-                  {total ? 22000 : 0}
-                  <span>đ</span>
-                </span>
-              </p>
-              <p>
-                Tổng thanh toán
-                <span>
-                  {total + (total ? 22000 : 0)}
-                  <span>đ</span>
-                </span>
-              </p>
+              <table>
+                <tr>
+                  <td style={{ paddingRight: '10px' }}>Tổng tiền hàng</td>
+                  <td style={{ textAlign: 'right' }}>
+                    {total}
+                    <span>đ</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ paddingRight: '10px' }}>Phí vận chuyển</td>
+                  <td style={{ textAlign: 'right' }}>
+                    {total ? 22000 : 0}
+                    <span>đ</span>
+                  </td>
+                </tr>
+                <tr style={{ fontWeight: '700', fontSize: '16px' }}>
+                  <td style={{ paddingRight: '10px' }}>Tổng thanh toán</td>
+                  <td style={{ textAlign: 'right' }}>
+                    {total + (total ? 22000 : 0)}
+                    <span>đ</span>
+                  </td>
+                </tr>
+              </table>
             </Box>
             <span onClick={() => navigate('/', { replace: true })}>
               Tiếp tục mua hàng
@@ -126,62 +143,3 @@ export default function PayCard() {
     </Box>
   );
 }
-
-// const items = [
-//   {
-//     id: 1,
-//     srcImg: 'pizza.png 2x',
-//     name: 'Pizza Hải Sản Đào',
-//     quantity: 1,
-//     price: 69000,
-//     desc: 'Đế Mỏng, Viền Phô Mai, Không topping',
-//   },
-//   {
-//     id: 2,
-//     srcImg: 'pizza1.png',
-//     name: 'Pizza Hải Sản Pesto Xanh',
-//     quantity: 2,
-//     price: 99000,
-//     desc: 'Tôm, cua, mực và bông cải xanh tươi ngon trên nền sốt Pesto Xanh',
-//   },
-//   {
-//     id: 3,
-//     srcImg: 'pizza2.png',
-//     name: 'Pizza Hải Sản Cao Cấp',
-//     quantity: 1,
-//     price: 179000,
-//     desc: 'Tôm, cua, mực và nghêu với sốt Marinara',
-//   },
-//   {
-//     id: 4,
-//     srcImg: 'pizza3.png',
-//     name: 'Pizza Thịt Nguội Kiểu Canada',
-//     quantity: 3,
-//     price: 149000,
-//     desc: 'Sự kết hợp giữa thịt nguội và bắp ngọt',
-//   },
-//   {
-//     id: 5,
-//     srcImg: 'pizza4.png',
-//     name: 'Pizza Thịt Xông Khói',
-//     quantity: 4,
-//     price: 169000,
-//     desc: 'Thịt giăm bông, thịt xông khói và hai loại rau của ớt xanh, cà chua',
-//   },
-//   {
-//     id: 6,
-//     srcImg: 'chicken.png',
-//     name: 'Đùi Gà Tẩm Bột Chiên Giòn (6pcs)',
-//     quantity: 5,
-//     price: 279000,
-//     desc: 'Đùi Gà phủ một lớp bột chiên giòn rụm',
-//   },
-//   {
-//     id: 7,
-//     srcImg: 'pasta.png',
-//     name: 'Mì Ý Tôm Sốt Kem Cà Chua',
-//     quantity: 10,
-//     price: 279000,
-//     desc: 'Sự tươi ngon của tôm kết hợp với sốt kem cà chua',
-//   },
-// ];

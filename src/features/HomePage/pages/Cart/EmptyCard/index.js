@@ -5,7 +5,7 @@ import Button from 'components/Button';
 
 const useStyles = makeStyles({
   root: {
-    padding: '77px 28px 34px 32px',
+    padding: '21px 28px 34px 32px',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
@@ -22,6 +22,14 @@ const useStyles = makeStyles({
     flex: 1,
     marginTop: '85px',
     alignSelf: 'center',
+
+    '& img': {
+      width: '100%',
+    },
+  },
+  logo: {
+    display: 'flex',
+    alignItems: 'flex-end',
   },
 });
 
@@ -30,6 +38,13 @@ export default function EmptyCard() {
 
   return (
     <Box className={classes.root}>
+      <Box className={classes.logo}>
+        <img
+          srcSet={process.env.PUBLIC_URL + 'pizzaLogo.png 2x'}
+          alt=""
+          style={{ marginLeft: 'auto', display: 'block', cursor: 'pointer' }}
+        />
+      </Box>
       <span>Giỏ hàng</span>
       <Box className={classes.body}>
         <img srcSet={process.env.PUBLIC_URL + 'empty.png 2x'} alt="" />
