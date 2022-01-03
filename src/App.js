@@ -1,10 +1,10 @@
 import { makeStyles } from '@mui/styles';
+import Login from 'features/Authentication/pages/Login';
+import Register from 'features/Authentication/pages/Register';
 import BuySuccess from 'features/BuySuccess';
 import HomePage from 'features/HomePage';
-import Login from 'features/Login';
 import Pay from 'features/PayMent';
 import Personal from 'features/Personal';
-import Register from 'features/Register/index';
 import React from 'react';
 import { Route, Routes } from 'react-router';
 

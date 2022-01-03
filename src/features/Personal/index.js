@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import NavBar from 'components/NavBar';
 import React, { useState, useEffect } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import Account from './pages/Account';
 import Addresses from './pages/Addresses';
 import Order from './pages/Order';
@@ -14,7 +14,7 @@ export default function Personal() {
     setActiveId(id);
   };
 
-  const user = useSelector((state) => state.login.username);
+  const user = useSelector((state) => state.auth.username);
   console.log(user);
   // API
   const [data, setData] = useState([]);
@@ -31,18 +31,17 @@ export default function Personal() {
   const tabs = [
     {
       id: 1,
-      component: <Account data={data}/>,
+      component: <Account data={data} />,
     },
     {
       id: 2,
-      component: <Order data={data}/>,
+      component: <Order data={data} />,
     },
     {
       id: 3,
-      component: <Addresses data={data}/>,
+      component: <Addresses data={data} />,
     },
   ];
-  
 
   return (
     <Grid container className="content">
@@ -58,27 +57,18 @@ export default function Personal() {
         {/* <div>
           Hi, <span className="user-tabs__userName">{data[0].name}</span>
         </div> */}
-        
-          <div
-            className="user-tabs__text"
-            onClick={() => onTabClick(1)}
-          >
-            Thông tin tài khoản
-          </div>
 
-          <div
-            className="user-tabs__text"
-            onClick={() => onTabClick(2)}
-          >
-            Đơn hàng
-          </div>
+        <div className="user-tabs__text" onClick={() => onTabClick(1)}>
+          Thông tin tài khoản
+        </div>
 
-          <div
-            className="user-tabs__text"
-            onClick={() => onTabClick(3)}
-          >
-            Địa chỉ
-          </div>
+        <div className="user-tabs__text" onClick={() => onTabClick(2)}>
+          Đơn hàng
+        </div>
+
+        <div className="user-tabs__text" onClick={() => onTabClick(3)}>
+          Địa chỉ
+        </div>
       </Grid>
       <Grid item xs={8}>
         <img
@@ -93,4 +83,3 @@ export default function Personal() {
     </Grid>
   );
 }
-

@@ -13,8 +13,8 @@ export default function UserForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.listProduct);
-  const user = useSelector((state) => state.login.username);
-  console.log(user)
+  const user = useSelector((state) => state.auth.username);
+  console.log(user);
 
   // API
   const [dataCart, setDataCart] = useState([]);
@@ -27,8 +27,7 @@ export default function UserForm() {
     }
     getData();
   }, [apiCart]);
-  console.log(dataCart)
-
+  console.log(dataCart);
 
   function handleBuyBtn(event) {
     event.preventDefault();
@@ -104,7 +103,7 @@ export default function UserForm() {
     }
     console.log(orderpizza1);
     console.log(orderside1);
-    console.log(data)
+    console.log(data);
 
     var dataPost = {
       cart: dataCart[1] ? null : dataCart[0].pk, //neu co tk mk thi them th nay vao

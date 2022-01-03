@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { makeStyles } from '@mui/styles';
-import { logout } from 'features/Login/slice';
+import { logout } from 'features/Authentication/slice';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -73,7 +73,7 @@ export default function NavBar() {
   const classes = useStyles();
   const [isActive, setIsActive] = useState(1);
   const navigate = useNavigate();
-  const tokenUser = useSelector((state) => state.login.token);
+  const tokenUser = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
 
   const handleClick = () => {

@@ -5,8 +5,8 @@ const initialState = {
   token: '',
 };
 
-const login = createSlice({
-  name: 'login',
+const auth = createSlice({
+  name: 'auth',
   initialState,
   reducers: {
     logout: (state) => {
@@ -20,6 +20,6 @@ const login = createSlice({
   },
 });
 
-export const { logout, saveDataLogin } = login.actions;
+export const { logout, saveDataLogin } = auth.actions;
 
-export default login.reducer;
+export default auth.reducer;

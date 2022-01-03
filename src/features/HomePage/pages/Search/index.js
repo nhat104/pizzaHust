@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import ListItem from 'features/HomePage/components/ListItem';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import SearchBtn from '../Main/pages/SearchBtn';
+import SearchBtn from '../Main/SearchBtn';
 
 export default function Search() {
   const { search } = useParams();
