@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div class="right">
+      <div class="frame4">
+        <div class="des">
+          <div class="des-img">
+            <img
+              src="./assets/img/pizza.gif"
+              alt=""
+              srcset=""
+            />
+          </div>
+          <div class="des-name-quantity">
+            <span class="name">Pizza hải sản đào</span>
+            <span class="quantity"
+              >69.000
+              <div class="orange">đ</div></span
+            >
+          </div>
+        </div>
+        <div class="listbox-component">
+          <div class="clip-list">
+            <span class="listbox-title">Kích thước</span>
+            <div class="custom-select">
+              <select>
+                <option value="0">Chọn kích thước</option>
+                <option value="1">Audi</option>
+                <option value="2">BMW</option>
+                <option value="3">Citroen</option>
+              </select>
+            </div>
+          </div>
+          <div class="clip-list">
+            <span class="listbox-title">Kích thước</span>
+            <div class="custom-select">
+              <select>
+                <option value="0">Chọn kích thước</option>
+                <option value="1">Audi</option>
+                <option value="2">BMW</option>
+                <option value="3">Citroen</option>
+              </select>
+            </div>
+          </div>
+          <div class="clip-list">
+            <span class="listbox-title">Kích thước</span>
+            <div class="custom-select">
+              <select>
+                <option value="0">Chọn kích thước</option>
+                <option value="1">Audi</option>
+                <option value="2">BMW</option>
+                <option value="3">Citroen</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="topping">
+          <span class="tp-title">Topping</span>
+          <div class="slider">
+            <div class="slider-item">
+              <div class="slider-item-img">
+                <img
+                  src="./assets/img/tomato.png"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div class="slider-name-quantity">
+                <span>Cà chua</span>
+                <span>+39.000đ</span>
+              </div>
+              <div class="slider-item-add"></div>
+            </div>
+            <div class="slider-item">
+              <div class="slider-item-img">
+                <img
+                  src="./assets/img/tomato.png"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div class="slider-name-quantity">
+                <span>Cà chua</span>
+                <span>+39.000đ</span>
+              </div>
+              <div class="slider-item-add"></div>
+            </div>
+            <div class="slider-item">
+              <div class="slider-item-img">
+                <img
+                  src="./assets/img/tomato.png"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div class="slider-name-quantity">
+                <span>Cà chua</span>
+                <span>+39.000đ</span>
+              </div>
+              <div class="slider-item-add"></div>
+            </div>
+            <div class="slider-item">
+              <div class="slider-item-img">
+                <img
+                  src="./assets/img/tomato.png"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div class="slider-name-quantity">
+                <span>Cà chua</span>
+                <span>+39.000đ</span>
+              </div>
+              <div class="slider-item-add"></div>
+            </div>
+            <div class="slider-item">
+              <div class="slider-item-img">
+                <img
+                  src="./assets/img/tomato.png"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div class="slider-name-quantity">
+                <span>Cà chua</span>
+                <span>+39.000đ</span>
+              </div>
+              <div class="slider-item-add"></div>
+            </div>
+            <div class="slider-item">
+              <div class="slider-item-img">
+                <img
+                  src="./assets/img/tomato.png"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div class="slider-name-quantity">
+                <span>Cà chua</span>
+                <span>+39.000đ</span>
+              </div>
+              <div class="slider-item-add"></div>
+            </div>
+            <div class="slider-item">
+              <div class="slider-item-img">
+                <img
+                  src="./assets/img/tomato.png"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div class="slider-name-quantity">
+                <span>Cà chua</span>
+                <span>+39.000đ</span>
+              </div>
+              <div class="slider-item-add"></div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-check-out add">
+          Thêm vào giỏ hàng
+        </div>
+      </div>
+    </div>
+  </body>
+  <script
+    type="text/javascript"
+    src="//code.jquery.com/jquery-1.11.0.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="//code.jquery.com/jquery-migrate-1.2.1.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+  ></script>
+
+  <script>
+    $(document).ready(function () {
+      $('.slider').slick({
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      });
+
+      $('.slider-item-add').click(function () {
+        $(this)
+          .closest('.slider-item')
+          .addClass('item-added');
+        $(this)
+          .addClass('slider-item-added')
+          .removeClass('slider-item-add');
+      });
+    });
+  </script>
+  <script>
+    var x, i, j, l, ll, selElmnt, a, b, c;
+    x = document.getElementsByClassName('custom-select');
+    l = x.length;
+    for (i = 0; i < l; i++) {
+      selElmnt = x[i].getElementsByTagName('select')[0];
+      ll = selElmnt.length;
+      a = document.createElement('DIV');
+      a.setAttribute('class', 'select-selected');
+      a.innerHTML =
+        selElmnt.options[selElmnt.selectedIndex].innerHTML;
+      x[i].appendChild(a);
+      b = document.createElement('DIV');
+      b.setAttribute('class', 'select-items select-hide');
+      for (j = 1; j < ll; j++) {
+        c = document.createElement('DIV');
+        c.innerHTML = selElmnt.options[j].innerHTML;
+        c.addEventListener('click', function (e) {
+          var y, i, k, s, h, sl, yl;
+          s =
+            this.parentNode.parentNode.getElementsByTagName(
+              'select'
+            )[0];
+          sl = s.length;
+          h = this.parentNode.previousSibling;
+          for (i = 0; i < sl; i++) {
+            if (s.options[i].innerHTML == this.innerHTML) {
+              s.selectedIndex = i;
+              h.innerHTML = this.innerHTML;
+              y = this.parentNode.getElementsByClassName(
+                'same-as-selected'
+              );
+              yl = y.length;
+              for (k = 0; k < yl; k++) {
+                y[k].removeAttribute('class');
+              }
+              this.setAttribute(
+                'class',
+                'same-as-selected'
+              );
+              break;
+            }
+          }
+          h.click();
+        });
+        b.appendChild(c);
+      }
+      x[i].appendChild(b);
+      a.addEventListener('click', function (e) {
+        e.stopPropagation();
+        closeAllSelect(this);
+        this.nextSibling.classList.toggle('select-hide');
+        this.classList.toggle('select-arrow-active');
+      });
+    }
+    function closeAllSelect(elmnt) {
+      var x,
+        y,
+        i,
+        xl,
+        yl,
+        arrNo = [];
+      x = document.getElementsByClassName('select-items');
+      y = document.getElementsByClassName(
+        'select-selected'
+      );
+      xl = x.length;
+      yl = y.length;
+      for (i = 0; i < yl; i++) {
+        if (elmnt == y[i]) {
+          arrNo.push(i);
+        } else {
+          y[i].classList.remove('select-arrow-active');
+        }
+      }
+      for (i = 0; i < xl; i++) {
+        if (arrNo.indexOf(i)) {
+          x[i].classList.add('select-hide');
+        }
+      }
+    }
+    document.addEventListener('click', closeAllSelect);
+  </script>
+</html>
