@@ -32,68 +32,23 @@ const useStyles = makeStyles({
   },
 });
 
-export default function BuyHistory() {
+export default function BuyHistory({ cartHistory }) {
   const classes = useStyles();
+
+  cartHistory = cartHistory.map((item) => item).reverse();
+
   return (
     <Box className={classes.root}>
-      {buyHistory.map((list) => (
-        <ProductList key={list.id} list={list.productList} fee={list.fee} />
+      {cartHistory.map((list) => (
+        <ProductList
+          key={list.id}
+          list={list}
+          cost_fields={list.cost}
+          orderpizza={list.orderpizza}
+          orderside={list.orderside}
+          isHistory={true}
+        />
       ))}
     </Box>
   );
 }
-
-const buyHistory = [
-  {
-    id: 1,
-    fee: 1200000,
-    productList: [
-      {
-        id: 1,
-        srcImg: '',
-        name: 'Pizza Hải Sản Đào',
-        quantity: 1,
-        cost: 69000,
-        size: 'Size S',
-        sole: 'Đế mỏng',
-        topping: '',
-      },
-      {
-        id: 2,
-        srcImg: '',
-        name: 'Pizza Hải Sản Đào',
-        quantity: 1,
-        cost: 69000,
-        size: 'Size S',
-        sole: 'Đế mỏng',
-        topping: '',
-      },
-    ],
-  },
-  {
-    id: 2,
-    fee: 1200000,
-    productList: [
-      {
-        id: 1,
-        srcImg: '',
-        name: 'Pizza Hải Sản Đào',
-        quantity: 1,
-        cost: 69000,
-        size: 'Size S',
-        sole: 'Đế mỏng',
-        topping: '',
-      },
-      {
-        id: 2,
-        srcImg: '',
-        name: 'Pizza Hải Sản Đào',
-        quantity: 1,
-        cost: 69000,
-        size: 'Size S',
-        sole: 'Đế mỏng',
-        topping: '',
-      },
-    ],
-  },
-];

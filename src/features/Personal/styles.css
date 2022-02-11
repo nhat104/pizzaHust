@@ -6,6 +6,7 @@
   width: 80px;
   margin-top: 16px;
   margin-left: 100px;
+  cursor: pointer;
 }
 .user-tabs {
   text-align: center;
@@ -25,7 +26,7 @@
   color: #ff3300;
 }
 .user-main {
-  margin-top: 60px;
+  margin-top: 52px;
 }
 .address-info {
   font-weight: 400;
@@ -90,4 +91,12 @@
 .add-address--button:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+.log-out {
+  position: fixed;
+  left: 5%;
+  bottom: 2%;
+  cursor: pointer;
+  padding: 6px 8px;
+  transform: rotate(180deg);
 }

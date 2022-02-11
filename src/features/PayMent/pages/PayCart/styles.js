@@ -4,13 +4,14 @@ const useStyles = makeStyles({
   root: {},
 
   container: {
-    marginLeft: '25px',
     cursor: 'default',
   },
 
   cart: {
-    height: '100vh',
-    padding: '77px 70px 28px 69px',
+    height: (props) => (props.tablet ? '100vh' : 'none'),
+    padding: (props) =>
+      props.tablet ? '77px 70px 28px 69px' : '30px 20px 10px 30px',
+    paddingLeft: (props) => (props.lMobile ? '30px' : '10px'),
     boxSizing: 'border-box',
     backgroundColor: '#fff',
     display: 'flex',
@@ -50,15 +51,19 @@ const useStyles = makeStyles({
 
   productItem: {
     display: 'flex',
+    gap: '10px',
+    minHeight: '80px',
     alignItems: 'center',
-    fontSize: '16px',
+    fontSize: (props) => (props.tablet ? '16px' : '14px'),
     lineHeight: 5 / 4,
     fontWeight: 600,
     background: '#fff2e0',
     borderRadius: '100px 0 0 100px',
 
     '& img': {
-      width: '120px',
+      height: (props) => (props.tablet ? '120px' : '100px'),
+      width: (props) => (props.tablet ? '120px' : '100px'),
+      objectFit: 'contain',
     },
 
     '& p, span': {
@@ -79,26 +84,32 @@ const useStyles = makeStyles({
     },
   },
 
+  desc: {
+    fontSize: '12px',
+    fontWeight: 500,
+    display: (props) => (props.lMobile ? 'block' : 'none'),
+  },
+
   cost: {
     marginRight: '20px',
     fontWeight: 700,
   },
 
   total: {
-    position: 'relative',
-    // height: '100px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap-reverse',
 
     '& > span': {
-      position: 'absolute',
       bottom: 0,
       color: '#ff8000',
       fontSize: '12px',
       fontWeight: 700,
       cursor: 'pointer',
+      alignSelf: 'end',
     },
   },
   fee: {
-    float: 'right',
     '& > table': {
       fontSize: '14px',
       fontWeight: 500,

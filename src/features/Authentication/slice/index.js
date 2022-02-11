@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  username: '',
-  token: '',
+  username: localStorage.getItem('usernameHUST') || '',
+  token: localStorage.getItem('tokenHUST') || '',
 };
 
 const auth = createSlice({
@@ -10,10 +10,14 @@ const auth = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
+      localStorage.removeItem('usernameHUST');
+      localStorage.removeItem('tokenHUST');
       state.username = '';
       state.token = '';
     },
     saveDataLogin: (state, action) => {
+      localStorage.setItem('usernameHUST', action.payload.username);
+      localStorage.setItem('tokenHUST', action.payload.token);
       state.username = action.payload.username;
       state.token = action.payload.token;
     },

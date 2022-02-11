@@ -17,7 +17,7 @@ export default function Menu() {
   };
 
   return (
-    <Box className={classes.root}>
+    <Box id="menu" className={classes.root}>
       <TaskBar
         categories={menus}
         activeId={activeId}

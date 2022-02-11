@@ -1,20 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { Alert, Box, Snackbar, TextField } from '@mui/material';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Alert, Box, Snackbar, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/styles';
 import Button from 'components/Button';
+import InputField from 'components/FormFields/InputField';
+import { buyAllRequest } from 'features/Slice';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { buyAllRequest } from 'features/Slice';
+import * as yup from 'yup';
 import { useStyles } from './styles';
-import './styles.css';
 
-export default function UserForm() {
-  const classes = useStyles();
+const regex = /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/;
+const schema = yup.object({
+  name: yup.string().required('Please enter your full name.'),
+  number_phone: yup
+    .string()
+    .required('Please enter your phone number')
+    .matches(regex, 'Invalid phone number'),
+  email: yup.string().email('Invalid email.').required('Please enter email.'),
+  address: yup.string().required('Please enter your address.'),
+});
+
+export default function UserForm({ data }) {
+  console.log(data);
+  const theme = useTheme();
+  const tablet = useMediaQuery(theme.breakpoints.up('tablet'));
+  const classes = useStyles({ tablet });
   const [buySuccess, setBuySuccess] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const cart = useSelector((state) => state.cart.listProduct);
   const user = useSelector((state) => state.auth.username);
-  console.log(user);
+
+  const { control, handleSubmit } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      ...data,
+      // phonenumber: data.number_phone
+    },
+  });
 
   // API
   const [dataCart, setDataCart] = useState([]);
@@ -23,23 +49,16 @@ export default function UserForm() {
     async function getData() {
       const response = await fetch(apiCart);
       const responseJSON = await response.json();
-      setDataCart(responseJSON);
+      console.log(responseJSON);
+      if (responseJSON.length === 1) {
+        setDataCart(responseJSON);
+      }
     }
     getData();
-  }, [apiCart]);
-  console.log(dataCart);
+  }, [apiCart, user]);
 
-  function handleBuyBtn(event) {
-    event.preventDefault();
-    dispatch(buyAllRequest());
-    setBuySuccess(true);
-    const data = new FormData(event.currentTarget);
-    const dataToOrder = {
-      name: data.get('Name'),
-      phone: data.get('Phone'),
-      email: data.get('Email'),
-      address: data.get('Address'),
-    };
+  async function handleBuyBtn(values) {
+    const dataToOrder = values;
     console.log('data to order', dataToOrder);
     const orderside = cart.filter((item) => item.type);
     const ordercombo = cart.filter((item) => item.numberperson);
@@ -53,6 +72,7 @@ export default function UserForm() {
         order: 41, //
         size: item.size,
         soles: item.sole,
+        topping: item.topping ? item.topping : null,
         pizaa: item.pk,
         pizzaa: item,
         comboorder: null,
@@ -71,6 +91,7 @@ export default function UserForm() {
         sidedis: item,
         amount: item.quantity,
         cost: item.cost,
+        comboorder: null,
         pecent: 0,
       });
     }
@@ -83,6 +104,7 @@ export default function UserForm() {
           size: 'M',
           soles: 'Mem xop',
           comboorder: item.pk,
+          topping: null,
           pizaa: i.pk,
           pizzaa: i,
           amount: item.quantity,
@@ -94,6 +116,7 @@ export default function UserForm() {
         orderside1.push({
           order: 41, //
           sidess: i.pk,
+          comboorder: item.pk,
           sidedis: i,
           amount: item.quantity,
           cost: i.cost,
@@ -103,12 +126,11 @@ export default function UserForm() {
     }
     console.log(orderpizza1);
     console.log(orderside1);
-    console.log(data);
 
     var dataPost = {
-      cart: dataCart[1] ? null : dataCart[0].pk, //neu co tk mk thi them th nay vao
+      cart: dataCart.length === 1 ? dataCart[0].pk : null, //neu co tk mk thi them th nay vao
       name: dataToOrder.name,
-      phonenumber: dataToOrder.phone,
+      phonenumber: dataToOrder.number_phone,
       email: dataToOrder.email,
       address: dataToOrder.address,
       orderpizza: orderpizza1,
@@ -117,7 +139,7 @@ export default function UserForm() {
       cost_fields: 20000,
     };
     var url_post = 'http://127.0.0.1:8000/order/';
-    fetch(url_post, {
+    await fetch(url_post, {
       method: 'POST', // thêm mới thì dùng post
       headers: {
         'Content-Type': 'application/json',
@@ -128,6 +150,8 @@ export default function UserForm() {
       .then((data) => {
         // bạn có thể làm gì đó với kết quả cuối cùng này thì làm
 
+        dispatch(buyAllRequest());
+        setBuySuccess(true);
         console.log('Success:', data); // ghi log kết quả hoàn thành
         setTimeout(() => {
           navigate('/success', { replace: true });
@@ -136,7 +160,6 @@ export default function UserForm() {
       .catch((error) => {
         console.error('Error:', error); // ghi log nếu xảy ra lỗi
       });
-    console.log('Success:', data); // ghi log kết quả hoàn thành
   }
 
   function handleClose() {
@@ -146,61 +169,47 @@ export default function UserForm() {
   return (
     <Box className={classes.root}>
       <Box className={classes.logo}>
-        <img
-          srcSet={process.env.PUBLIC_URL + 'pizzaLogo.png 2x'}
-          alt=""
-          style={{ marginLeft: 'auto', display: 'block' }}
-        />
+        <img srcSet={process.env.PUBLIC_URL + 'pizzaLogo.png 2x'} alt="" />
       </Box>
-      <Box
-        component="form"
-        className={classes.userForm}
-        onSubmit={handleBuyBtn}
-      >
-        <span>Thông tin thanh toán</span>
+      <span>Thông tin thanh toán</span>
+      <form className={classes.userForm} onSubmit={handleSubmit(handleBuyBtn)}>
         <Box className={classes.userForm}>
-          <TextField
-            margin="normal"
-            autoFocus
-            required
-            fullWidth
-            id="name"
-            placeholder="Họ và tên"
-            name="Name"
-            sx={{ mt: 2, mb: 2 }}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="phone"
-            placeholder="Số điện thoại"
-            name="Phone"
-            sx={{ mt: 2, mb: 2 }}
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            type="email"
-            id="email"
-            placeholder="Email"
-            name="Email"
-            sx={{ mt: 2, mb: 2 }}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="address"
-            placeholder="Địa chỉ"
-            name="Address"
-            sx={{ mt: 2, mb: 2 }}
-          />
+          <Box sx={{ mt: 2, mb: 2 }}>
+            <InputField
+              name="name"
+              size="large"
+              placeholder="Họ và tên"
+              control={control}
+            />
+          </Box>
+          <Box sx={{ mt: 2, mb: 2 }}>
+            <InputField
+              name="number_phone"
+              size="large"
+              placeholder="Số điện thoại"
+              control={control}
+            />
+          </Box>
+          <Box sx={{ mt: 2, mb: 2 }}>
+            <InputField
+              name="email"
+              size="large"
+              placeholder="Email"
+              control={control}
+            />
+          </Box>
+          <Box sx={{ mt: 2, mb: 2 }}>
+            <InputField
+              name="address"
+              size="large"
+              placeholder="Địa chỉ"
+              control={control}
+            />
+          </Box>
         </Box>
         <Button type="submit" name="Mua hàng" />
-      </Box>
+      </form>
+
       <Snackbar
         open={buySuccess}
         autoHideDuration={3000}
@@ -211,7 +220,7 @@ export default function UserForm() {
         }}
       >
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          Buy Successfull! Thank you!
+          Buy Successfully! Thank you!
         </Alert>
       </Snackbar>
     </Box>

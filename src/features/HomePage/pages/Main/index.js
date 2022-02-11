@@ -3,7 +3,7 @@ import React from 'react';
 import Category from './Category';
 import Combo from './Combo';
 import Footer from './Footer';
-import SearchBtn from './SearchBtn';
+import SearchBtn from '../../components/SearchBtn';
 import Menu from './Menu';
 
 export default function Main() {

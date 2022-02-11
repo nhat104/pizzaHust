@@ -1,16 +1,20 @@
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { Autocomplete, Box, Popover, TextField } from "@mui/material";
-import Button from "components/Button";
-import { AddBtnClick, addOldProduct } from "features/Slice";
-import { addProduct, BackBtnClick, ChooseProduct } from "features/Slice";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import ChangeCombo from "../ChangeCombo";
-import { useStyles } from "./styles";
-import "./styles.css";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Autocomplete, Box, Popover } from '@mui/material';
+import { TextField, useMediaQuery } from '@mui/material';
+import Button from 'components/Button';
+import { AddBtnClick, addOldProduct } from 'features/Slice';
+import { addProduct, BackBtnClick, ChooseProduct } from 'features/Slice';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ChangeCombo from '../ChangeCombo';
+import { useStyles } from './styles';
+import { useTheme } from '@mui/styles';
+import './styles.css';
 
 export default function AnProductCart({ chooseProduct }) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const tablet = useMediaQuery(theme.breakpoints.up('tablet'));
+  const classes = useStyles({ tablet });
   const [size, setSize] = useState(null);
   const [sole, setSole] = useState(null);
   const [topping, setTopping] = useState(null);
@@ -75,7 +79,7 @@ export default function AnProductCart({ chooseProduct }) {
     if (!chooseProduct.numberperson) {
       let product = {};
       // Nếu sản phẩm là pizza
-      if (chooseProduct.hasOwnProperty("costl")) {
+      if (chooseProduct.hasOwnProperty('costl')) {
         // change cost when choose size, topping
         const toppingCost = topping !== null ? topping.addCost : 0;
         product = {
@@ -85,7 +89,7 @@ export default function AnProductCart({ chooseProduct }) {
           quantity: 1,
           size: size.size,
           sole: sole.sole,
-          topping: topping !== null ? topping.topping : "",
+          topping: topping !== null ? topping.topping : '',
         };
       } else {
         // Nếu sản phẩm không là pizza
@@ -145,41 +149,41 @@ export default function AnProductCart({ chooseProduct }) {
 
   const sizes = [
     {
-      size: "S",
+      size: 'S',
       addCost: 0,
     },
     {
-      size: "M",
+      size: 'M',
       addCost: chooseProduct.costm - chooseProduct.cost,
     },
     {
-      size: "L",
+      size: 'L',
       addCost: chooseProduct.costl - chooseProduct.cost,
     },
   ];
 
   const soles = [
     {
-      sole: "Gion",
+      sole: 'Gion',
       addCost: 0,
     },
     {
-      sole: "Mem xop",
+      sole: 'Mem xop',
       addCost: 0,
     },
   ];
 
   const toppings = [
     {
-      topping: "Thêm phô mai phủ",
+      topping: 'Thêm phô mai phủ',
       addCost: 10000,
     },
     {
-      topping: "Thêm phô mai viền",
+      topping: 'Thêm phô mai viền',
       addCost: 10000,
     },
     {
-      topping: "Double sốt",
+      topping: 'Double sốt',
       addCost: 10000,
     },
   ];
@@ -187,35 +191,31 @@ export default function AnProductCart({ chooseProduct }) {
   return (
     <Box component="form" onSubmit={handleToCartBtn} className={classes.root}>
       <Box className={classes.logo}>
-        <img
-          srcSet={process.env.PUBLIC_URL + "pizzaLogo.png 2x"}
-          alt=""
-          style={{ marginLeft: "auto", display: "block", cursor: "pointer" }}
-        />
+        <img srcSet={process.env.PUBLIC_URL + 'pizzaLogo.png 2x'} alt="" />
       </Box>
-      <ArrowBackIosIcon className={classes.back} onClick={handleBackBtn} />
+      <Box className={classes.back} onClick={handleBackBtn}>
+        <ArrowBackIosIcon />
+      </Box>
       <Box className={classes.product}>
-        <img
-          src={chooseProduct.image}
-          // src={process.env.PUBLIC_URL + `${chooseProduct.srcImg}`}
-          alt=""
-        />
-        <Box>
+        <Box className={classes.image}>
+          <img src={chooseProduct.image} alt="" />
+        </Box>
+        <Box className={classes.content}>
           <p>{chooseProduct.name}</p>
-          <p style={{ fontWeight: 400 }}>{chooseProduct.description}</p>
+          <p className={classes.desc}>{chooseProduct.description}</p>
           <p>
-            {chooseProduct.hasOwnProperty("costl")
+            {chooseProduct.hasOwnProperty('costl')
               ? chooseProduct.cost +
                 (size !== null ? size.addCost : 0) +
                 (topping !== null ? topping.addCost : 0)
               : chooseProduct.cost}
-            <span style={{ color: "#FF8000" }}> đ</span>
+            <span style={{ color: '#FF8000' }}> đ</span>
           </p>
         </Box>
       </Box>
 
       {/* MUA THEO COMBO */}
-      {chooseProduct.hasOwnProperty("numberperson") && (
+      {chooseProduct.hasOwnProperty('numberperson') && (
         <Box className={classes.combo}>
           <Box>
             {chooseProduct.subProduct.map((item) => (
@@ -230,8 +230,8 @@ export default function AnProductCart({ chooseProduct }) {
                   anchorEl={anchorEl}
                   onClose={handleCloseChange}
                   transformOrigin={{
-                    vertical: "center",
-                    horizontal: "right",
+                    vertical: 'center',
+                    horizontal: 'right',
                   }}
                 >
                   {/* Truyền thêm props (api, ...) vào ChangeCombo để lấy được các sản phẩm thay thế */}
@@ -249,9 +249,9 @@ export default function AnProductCart({ chooseProduct }) {
       )}
 
       {/* MUA MỘT SẢN PHẨM */}
-      {!chooseProduct.hasOwnProperty("numberperson") && (
+      {!chooseProduct.hasOwnProperty('numberperson') && (
         <Box className={classes.choose}>
-          {chooseProduct.hasOwnProperty("costl") && (
+          {chooseProduct.hasOwnProperty('costl') && (
             <Box>
               <Autocomplete
                 className={classes.select}
@@ -266,7 +266,7 @@ export default function AnProductCart({ chooseProduct }) {
                   option.value === value.value
                 }
                 getOptionLabel={(option) => option.size}
-                sx={{ mt: 1, mb: 1, width: "100%" }}
+                sx={{ mt: 1, mb: 1, width: '100%' }}
                 renderOption={(props, option) => (
                   <Box component="li" {...props}>
                     {option.size} (+{option.addCost}đ)
@@ -296,7 +296,7 @@ export default function AnProductCart({ chooseProduct }) {
                   option.value === value.value
                 }
                 getOptionLabel={(option) => option.sole}
-                sx={{ mt: 1, mb: 1, width: "100%" }}
+                sx={{ mt: 1, mb: 1, width: '100%' }}
                 renderOption={(props, option) => (
                   <Box component="li" {...props}>
                     {option.sole} (+{option.addCost}đ)
@@ -321,7 +321,7 @@ export default function AnProductCart({ chooseProduct }) {
                   option.value === value.value
                 }
                 getOptionLabel={(option) => option.topping}
-                sx={{ mt: 1, mb: 1, width: "100%" }}
+                sx={{ mt: 1, mb: 1, width: '100%' }}
                 renderOption={(props, option) => (
                   <Box component="li" {...props}>
                     {option.topping} (+{option.addCost}đ)

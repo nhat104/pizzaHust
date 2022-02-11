@@ -13,6 +13,7 @@ const useStyles = makeStyles({
     borderRadius: '20px',
     backgroundColor: '#fff',
     display: 'flex',
+    maxWidth: '282px',
     flexDirection: 'column',
     boxSizing: 'border-box',
     marginBottom: '70px',
@@ -65,7 +66,6 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  text: {},
 });
 
 export default function Item({ item }) {

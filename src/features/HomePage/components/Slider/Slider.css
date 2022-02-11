@@ -1,16 +1,12 @@
 .container-slider {
   max-width: 100%;
-  margin: 100px auto 0;
+  margin: 20px auto 0;
   position: relative;
   overflow: hidden;
   padding-top: 25%;
-  box-shadow: 4px 4px 4px rgb(255 128 1 / 25%), -2px -2px 4px rgb(208 208 208 / 15%);
+  box-shadow: 4px 4px 4px rgb(255 128 1 / 25%),
+    -2px -2px 4px rgb(208 208 208 / 15%);
   border-radius: 10px;
-}
-@media screen and (max-width: 700px) {
-  .container-slider {
-    margin: 100px 10px 0;
-  }
 }
 .slide {
   width: 100%;

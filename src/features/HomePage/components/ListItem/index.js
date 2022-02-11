@@ -1,5 +1,5 @@
 import { Button, Box, CircularProgress, useMediaQuery } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, useTheme } from '@mui/styles';
 // import pizzaList from 'constants/Category/pizzaList';
 import Item from 'features/HomePage/components/Item';
 import React, { useEffect, useState } from 'react';
@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     marginTop: '100px',
     display: 'grid',
     gridTemplateColumns: (props) =>
-      props.md
+      props.laptop
         ? `repeat(3, minmax(0, 1fr))`
         : props.sm
         ? 'repeat(2, minmax(0, 1fr))'
@@ -27,9 +27,11 @@ const useStyles = makeStyles({
 });
 
 export default function ListItem({ listItem, api }) {
-  const md = useMediaQuery('(min-width:1000px)');
-  const sm = useMediaQuery('(min-width:700px)');
-  const classes = useStyles({ sm, md });
+  const theme = useTheme();
+  const sm = useMediaQuery(theme.breakpoints.up('lMobile'));
+  const tablet = useMediaQuery(theme.breakpoints.up('tablet'));
+  const laptop = useMediaQuery(theme.breakpoints.up('laptop'));
+  const classes = useStyles({ laptop, tablet, sm });
   const [limit, setLimit] = useState(6);
 
   // API

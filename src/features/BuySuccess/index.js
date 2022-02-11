@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box, Grid } from '@mui/material';
-import NavBar from 'components/NavBar';
+import NavBarLeft from 'components/NavBarLeft';
 import Button from 'components/Button';
 import { useNavigate } from 'react-router-dom';
 
@@ -39,34 +39,29 @@ export default function BuySuccess() {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  function returnHome(event) {
+  function handleReturnHome(event) {
     event.preventDefault();
     navigate('/', { replace: true });
   }
 
+  function handleViewCart(event) {
+    event.preventDefault();
+    navigate('/personal', { replace: true });
+  }
+
   return (
     <Box className={classes.root}>
-      <Grid className={classes.body} container>
-        <Grid item xs={1}>
-          <NavBar className={classes.navBar} />
-        </Grid>
-        <Grid item xs={11}>
-          <Box className={classes.main}>
-            <Box className={classes.img}>
-              <img
-                srcSet={process.env.PUBLIC_URL + 'buySuccess.png 2x'}
-                alt=""
-              />
-            </Box>
-            <Box className={classes.button} onClick={returnHome}>
-              <Button name="Quay lại trang chủ" />
-            </Box>
-            <Box className={classes.button}>
-              <Button name="Xem đơn hàng" />
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
+      <Box className={classes.main}>
+        <Box className={classes.img}>
+          <img srcSet={process.env.PUBLIC_URL + 'buySuccess.png 2x'} alt="" />
+        </Box>
+        <Box className={classes.button} onClick={handleReturnHome}>
+          <Button name="Quay lại trang chủ" />
+        </Box>
+        <Box className={classes.button} onClick={handleViewCart}>
+          <Button name="Xem đơn hàng" />
+        </Box>
+      </Box>
     </Box>
   );
 }

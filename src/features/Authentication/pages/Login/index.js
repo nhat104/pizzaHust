@@ -15,7 +15,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleLogin = (values) => {
-    console.log('values', values);
+    // console.log('values', values);
     setError('');
     axios
       .post('http://127.0.0.1:8000/api/login/', {
@@ -75,7 +75,9 @@ export default function Login() {
         </Snackbar>
       </Box>
       <Box className={classes.image}>
-        <img src={process.env.PUBLIC_URL + 'auth.png'} alt="" />
+        <Box className={classes.wrap}>
+          <img src={process.env.PUBLIC_URL + 'auth.png'} alt="" />
+        </Box>
       </Box>
     </Box>
   );

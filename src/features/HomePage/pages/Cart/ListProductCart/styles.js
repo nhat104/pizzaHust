@@ -9,6 +9,15 @@ const useStyles = makeStyles({
     height: '100vh',
   },
 
+  logo: {
+    display: (props) => (props.tablet ? 'block' : 'none'),
+    '& img': {
+      marginLeft: 'auto',
+      display: 'block',
+      cursor: 'pointer',
+    },
+  },
+
   product: {
     display: 'flex',
     flexDirection: 'column',
@@ -21,6 +30,9 @@ const useStyles = makeStyles({
   productList: {
     flex: 1,
     overflow: 'auto',
+    '& > div:first-child': {
+      marginTop: '30px',
+    },
     /* width */
     '&::-webkit-scrollbar': {
       width: '5px',
@@ -40,7 +52,6 @@ const useStyles = makeStyles({
   },
 
   text: {
-    marginBottom: '30px',
     fontSize: '18px',
     fontWeight: 700,
     display: 'flex',
@@ -48,18 +59,18 @@ const useStyles = makeStyles({
   },
 
   productItem: {
-    height: '80px',
+    height: (props) => (props.laptop ? '80px' : '55px'),
     backgroundColor: '#FFECD1',
     display: 'flex',
     alignItems: 'center',
     marginBottom: '24px',
     borderRadius: '57px',
+    fontSize: (props) => (props.laptop ? '16px' : '14px'),
 
     '& img': {
       width: '100px',
       marginLeft: '-5px',
       transition: 'all 0.5s',
-      transitionTiming: 'ease-in-out',
       '&:hover': {
         transform: 'rotate(20deg)',
       },
@@ -70,8 +81,16 @@ const useStyles = makeStyles({
     },
   },
 
+  image: {
+    flex: 2,
+    maxWidth: '120px',
+    '& img': {
+      width: '100%',
+    },
+  },
+
   itemInfo: {
-    flex: 1,
+    flex: 2,
 
     '& p': {
       fontWeight: 500,

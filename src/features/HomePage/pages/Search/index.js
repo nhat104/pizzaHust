@@ -1,8 +1,8 @@
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import ListItem from 'features/HomePage/components/ListItem';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import SearchBtn from '../Main/SearchBtn';
+import SearchBtn from '../../components/SearchBtn';
 
 export default function Search() {
   const { search } = useParams();
@@ -12,7 +12,7 @@ export default function Search() {
   const [comboResponse, setComboResponse] = useState([]);
 
   // API
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(0);
   const pizzaSearch = 'http://127.0.0.1:8000/piza/?search=' + search.slice(7);
   const sideSearch = 'http://127.0.0.1:8000/side/?search=' + search.slice(7);
   const comboSearch = 'http://127.0.0.1:8000/combo/?search=' + search.slice(7);
@@ -21,15 +21,15 @@ export default function Search() {
     async function getData() {
       const responsePizza = await fetch(pizzaSearch);
       setPizzaResponse(await responsePizza.json());
-      setLoading(true);
+      setLoading(1);
 
       const responseSide = await fetch(sideSearch);
       setSideResponse(await responseSide.json());
-      setLoading(true);
+      setLoading(2);
 
       const responseCombo = await fetch(comboSearch);
       setComboResponse(await responseCombo.json());
-      setLoading(true);
+      setLoading(3);
     }
 
     getData();
@@ -46,7 +46,18 @@ export default function Search() {
             <Box>Hiển thị kết quả tìm kiếm cho {search.slice(7)}</Box>
             <Box>Có {data.length} kết quả.</Box>
           </Box>
-          <ListItem listItem={data} />
+          {loading === 3 ? (
+            <>
+              <ListItem listItem={data} />
+            </>
+          ) : (
+            <Box style={{ textAlign: 'center' }}>
+              <CircularProgress
+                color="success"
+                style={{ margin: '20px auto' }}
+              />
+            </Box>
+          )}
         </Box>
       )}
     </div>

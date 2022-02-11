@@ -27,17 +27,6 @@ export default function LoginForm({ onSubmit }) {
         <InputField name="username" control={control} />
         <Box sx={{ mt: 3 }}>Mật khẩu</Box>
         <InputField name="password" type="password" control={control} />
-        <Box
-          sx={{
-            mt: 3,
-            mb: 3,
-            textAlign: 'center',
-            color: '#FF8000',
-            cursor: 'pointer',
-          }}
-        >
-          Quên mật khẩu
-        </Box>
         <AuthButton name="Đăng nhập" />
       </form>
     </Box>

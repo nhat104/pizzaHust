@@ -6,20 +6,13 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+const regex = /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/;
 const schema = yup.object({
-  fullname: yup
-    .string()
-    .required('Please enter your full name.')
-    .test('two-words', 'Enter at least 2 words.', (value) => {
-      if (!value) return true;
-      const parts = value?.split(' ') || [];
-      return parts.filter((x) => !!x).length >= 2;
-    }),
+  fullname: yup.string().required('Please enter your full name.'),
   phone: yup
-    .number()
-    .positive('Invalid phone number.')
-    .required('Please enter your phone.')
-    .typeError('Invalid phone number.'),
+    .string()
+    .required('Please enter your phone number')
+    .matches(regex, 'Invalid phone number'),
   address: yup.string().required('Please enter your address.'),
   dateOfBirth: yup.string().required('Please enter your date of birth.'),
 });
@@ -47,11 +40,11 @@ export default function InformationForm({ onSubmit }) {
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <Box>Họ và tên</Box>
         <InputField name="fullname" control={control} />
-        <Box sx={{ mt: 1 }}>Số điện thoại</Box>
+        <Box sx={{ mt: 2 }}>Số điện thoại</Box>
         <InputField name="phone" control={control} />
-        <Box sx={{ mt: 1 }}>Địa chỉ</Box>
+        <Box sx={{ mt: 2 }}>Địa chỉ</Box>
         <InputField name="address" control={control} />
-        <Box sx={{ mt: 1 }}>Ngày sinh</Box>
+        <Box sx={{ mt: 2 }}>Ngày sinh</Box>
         <InputField name="dateOfBirth" type="date" control={control} />
         <AuthButton name="Chấp nhận" />
       </form>

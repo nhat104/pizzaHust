@@ -11,32 +11,47 @@ const useStyles = makeStyles({
 
   back: {
     cursor: 'pointer',
-
+    display: (props) => (props.tablet ? 'block' : 'none'),
     '&:hover': {
       fill: '#ff8000',
     },
   },
 
   logo: {
-    display: 'flex',
-    alignItems: 'flex-end',
+    display: (props) => (props.tablet ? 'block' : 'none'),
+    '& img': {
+      marginLeft: 'auto',
+      display: 'block',
+      cursor: 'pointer',
+    },
   },
 
   product: {
-    display: 'flex',
     width: '100%',
+    display: 'flex',
+    gap: '10px',
+  },
 
+  image: {
+    flex: 1,
     '& img': {
-      width: '40%',
-      height: 'auto',
+      width: '100%',
     },
+  },
 
+  content: {
+    flex: 2,
     '& p': {
-      margin: '15px 0 0 10px',
+      marginTop: '10px',
       fontWeight: 600,
       fontSize: '16px',
       lineHeight: 18 / 15,
     },
+  },
+
+  desc: {
+    fontWeight: '400 !important',
+    fontSize: '12px !important',
   },
 
   choose: {

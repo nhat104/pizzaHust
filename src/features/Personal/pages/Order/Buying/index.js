@@ -32,70 +32,78 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Buying() {
+export default function Buying({ cartContinue }) {
   const classes = useStyles();
+
+  cartContinue = cartContinue.map((item) => item).reverse();
 
   return (
     <Box className={classes.root}>
-      {buying.map((list) => (
-        <ProductList key={list.id} list={list.productList} fee={list.fee} />
+      {cartContinue.map((list) => (
+        <ProductList
+          key={list.pk}
+          list={list}
+          cost_fields={list.cost}
+          orderpizza={list.orderpizza}
+          orderside={list.orderside}
+          isHistory={false}
+        />
       ))}
-      {/* <ProductList /> */}
     </Box>
   );
 }
 
-const buying = [
-  {
-    id: 1,
-    fee: 1200000,
-    productList: [
-      {
-        id: 1,
-        srcImg: '',
-        name: 'Pizza Hải Sản Đào',
-        quantity: 1,
-        cost: 69000,
-        size: 'Size S',
-        sole: 'Đế mỏng',
-        topping: '',
-      },
-      {
-        id: 2,
-        srcImg: '',
-        name: 'Pizza Hải Sản Đào',
-        quantity: 1,
-        cost: 69000,
-        size: 'Size S',
-        sole: 'Đế mỏng',
-        topping: '',
-      },
-    ],
-  },
-  {
-    id: 2,
-    fee: 1200000,
-    productList: [
-      {
-        id: 1,
-        srcImg: '',
-        name: 'Pizza Hải Sản Đào',
-        quantity: 1,
-        cost: 69000,
-        size: 'Size S',
-        sole: 'Đế mỏng',
-        topping: '',
-      },
-      {
-        id: 2,
-        srcImg: '',
-        name: 'Pizza Hải Sản Đào',
-        quantity: 1,
-        cost: 69000,
-        size: 'Size S',
-        sole: 'Đế mỏng',
-        topping: '',
-      },
-    ],
-  },
-];
+// const buying = [
+//   {
+//     id: 1,
+//     fee: 1200000,
+//     productList: [
+//       {
+//         id: 1,
+//         srcImg: '',
+//         name: 'Pizza Hải Sản Đào',
+//         quantity: 1,
+//         cost: 69000,
+//         size: 'Size S',
+//         sole: 'Đế mỏng',
+//         topping: '',
+//       },
+//       {
+//         id: 2,
+//         srcImg: '',
+//         name: 'Pizza Hải Sản Đào',
+//         quantity: 1,
+//         cost: 69000,
+//         size: 'Size S',
+//         sole: 'Đế mỏng',
+//         topping: '',
+//       },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     fee: 1200000,
+//     productList: [
+//       {
+//         id: 1,
+//         srcImg: '',
+//         name: 'Pizza Hải Sản Đào',
+//         quantity: 1,
+//         cost: 69000,
+//         size: 'Size S',
+//         sole: 'Đế mỏng',
+//         topping: '',
+//       },
+//       {
+//         id: 2,
+//         srcImg: '',
+//         name: 'Pizza Hải Sản Đào',
+//         quantity: 1,
+//         cost: 69000,
+//         size: 'Size S',
+//         sole: 'Đế mỏng',
+//         topping: '',
+//       },
+//     ],
+//   },
+// ];

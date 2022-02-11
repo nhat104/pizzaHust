@@ -9,9 +9,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router';
 
 const useStyles = makeStyles({
-  root: {
-    width: 'calc(100vw - 17px)',
-  },
+  root: {},
 });
 
 export default function App() {
